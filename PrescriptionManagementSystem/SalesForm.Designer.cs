@@ -31,6 +31,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panelContent = new Panel();
+            lblCustomerId = new Label();
             lblKey = new Label();
             btnSearchCustomer = new Button();
             label2 = new Label();
@@ -62,7 +63,6 @@
             chkAddToList = new DataGridViewCheckBoxColumn();
             StockId = new DataGridViewTextBoxColumn();
             DrugId = new DataGridViewTextBoxColumn();
-            lblCustomerId = new Label();
             panelContent.SuspendLayout();
             panelControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridDrugs).BeginInit();
@@ -90,6 +90,15 @@
             panelContent.Name = "panelContent";
             panelContent.Size = new Size(1700, 707);
             panelContent.TabIndex = 0;
+            // 
+            // lblCustomerId
+            // 
+            lblCustomerId.AutoSize = true;
+            lblCustomerId.Location = new Point(1415, 58);
+            lblCustomerId.Name = "lblCustomerId";
+            lblCustomerId.Size = new Size(77, 25);
+            lblCustomerId.TabIndex = 127;
+            lblCustomerId.Text = "Cust Id: ";
             // 
             // lblKey
             // 
@@ -222,16 +231,16 @@
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             label3.Location = new Point(252, 78);
             label3.Name = "label3";
-            label3.Size = new Size(52, 25);
+            label3.Size = new Size(126, 25);
             label3.TabIndex = 112;
-            label3.Text = "Drug";
+            label3.Text = "Product Name";
             // 
             // txtSearchDrug
             // 
             txtSearchDrug.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             txtSearchDrug.Location = new Point(252, 101);
             txtSearchDrug.Name = "txtSearchDrug";
-            txtSearchDrug.PlaceholderText = "Type drug name to search";
+            txtSearchDrug.PlaceholderText = "Type name to search";
             txtSearchDrug.Size = new Size(1240, 37);
             txtSearchDrug.TabIndex = 111;
             txtSearchDrug.TextChanged += txtSearchDrug_TextChanged;
@@ -306,11 +315,11 @@
             // DrugName
             // 
             DrugName.DataPropertyName = "Name";
-            DrugName.HeaderText = "DrugName";
+            DrugName.HeaderText = "Name";
             DrugName.MinimumWidth = 8;
             DrugName.Name = "DrugName";
             DrugName.ReadOnly = true;
-            DrugName.Width = 149;
+            DrugName.Width = 102;
             // 
             // Condition
             // 
@@ -444,15 +453,6 @@
             DrugId.Visible = false;
             DrugId.Width = 111;
             // 
-            // lblCustomerId
-            // 
-            lblCustomerId.AutoSize = true;
-            lblCustomerId.Location = new Point(1498, 58);
-            lblCustomerId.Name = "lblCustomerId";
-            lblCustomerId.Size = new Size(77, 25);
-            lblCustomerId.TabIndex = 127;
-            lblCustomerId.Text = "Cust Id: ";
-            // 
             // SalesForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -491,6 +491,8 @@
         private Label label2;
         private Label lblBalance;
         private Button btnSearchCustomer;
+        private Label lblKey;
+        private Label lblCustomerId;
         private DataGridViewTextBoxColumn DrugName;
         private DataGridViewTextBoxColumn Condition;
         private DataGridViewTextBoxColumn AvailableQty;
@@ -506,7 +508,5 @@
         private DataGridViewCheckBoxColumn chkAddToList;
         private DataGridViewTextBoxColumn StockId;
         private DataGridViewTextBoxColumn DrugId;
-        private Label lblKey;
-        private Label lblCustomerId;
     }
 }

@@ -85,8 +85,9 @@ namespace PrescriptionManagementSystem
 
         private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangePasswordForm changePasswordForm = new ChangePasswordForm();
-            changePasswordForm.ShowDialog();
+            //ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+            DashboardForm dashboardForm = new();
+            dashboardForm.ShowDialog();
         }
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)

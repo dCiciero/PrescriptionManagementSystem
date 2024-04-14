@@ -24,7 +24,7 @@ namespace PrescriptionManagementSystem
             
            
             
-            EmployeeMgmtForm empMgmtForm = new EmployeeMgmtForm();
+            //EmployeeMgmtForm empMgmtForm = new EmployeeMgmtForm();
             DataTable dt = new DataTable();
             //mainForm mainForm = new mainForm();
             //mainForm.WindowState = FormWindowState.Maximized;
@@ -32,11 +32,13 @@ namespace PrescriptionManagementSystem
             //mainForm.FormBorderStyle = FormBorderStyle.None;
             AppConfig.getDBConnection();
             AppConfig.getStoreDetails();
+            //AppConfig.GetDrugsData();
             LoginForm frmLogin = new LoginForm();
             //getStoreDetails();
-            SalesChart salesChart = new SalesChart();
-            DashboardForm dashboardForm = new DashboardForm();
-            Application.Run(dashboardForm);
+            //SalesChart salesChart = new SalesChart();
+            //DashboardForm dashboardForm = new DashboardForm();
+            Application.Run(frmLogin);
+            //Application.Run(dashboardForm);
             //Application.Run(new WebScraper());
         }
 

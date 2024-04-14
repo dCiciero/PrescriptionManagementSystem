@@ -18,6 +18,7 @@ namespace PrescriptionManagementSystem
         SqlCommand sqlCmd;
         SqlDataReader rdr;
         public int customerId;
+        private SalesForm salesForm = null;
         public CustomerSearchForm()
         {
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace PrescriptionManagementSystem
             sqlConn = AppConfig.sqlConn;
             //ConnectDB();
             GetCustomers();
+            btnCustSale.Visible = false;
         }
         public CustomerSearchForm(string source)
         {
@@ -34,6 +36,15 @@ namespace PrescriptionManagementSystem
             AppConfig.getDBConnection();
             sqlConn = AppConfig.sqlConn;
             //ConnectDB();
+            GetCustomers();
+        }
+        public CustomerSearchForm(Form callingForm)
+        {
+            salesForm = (SalesForm)callingForm;
+            InitializeComponent ();
+            btnCustSale.Visible = true;
+            AppConfig.getDBConnection();
+            sqlConn = AppConfig.sqlConn;
             GetCustomers();
         }
 
@@ -50,7 +61,6 @@ namespace PrescriptionManagementSystem
         private void GetCustomers()
         {
 
-            DataSet custDs = new DataSet();
             DataTable dataTable;
             SqlDataAdapter sqlDataAdapter;
 
@@ -67,9 +77,9 @@ namespace PrescriptionManagementSystem
                 sqlDataAdapter = new SqlDataAdapter(sqlQuery, sqlConn);
                 sqlDataAdapter.Fill(dataTable);
 
-                dataGridCustomer.AutoGenerateColumns = false;
+                dgvCustomer.AutoGenerateColumns = false;
 
-                dataGridCustomer.DataSource = dataTable;
+                dgvCustomer.DataSource = dataTable;
 
 
             }
@@ -83,6 +93,52 @@ namespace PrescriptionManagementSystem
             }
         }
 
+
+        private void GetCustomerPrescriptionHistory(int custId)
+        {
+
+            try
+            {
+                DataTable dataTable;
+                SqlDataAdapter sqlDataAdapter;
+
+                try
+                {
+                    string sqlQuery = @"SELECT Sales.DateSold, PD.[Name] AS ProductName, PD.Condition, UA.FirstName + ' '+ UA.LastName AS SoldBy 
+                                        FROM SalesItem SI INNER JOIN Sales ON Sales.Id = SI.SaleId 
+                                        INNER JOIN PharmaDrugs PD ON SI.DrugId= PD.Id
+                                        INNER JOIN UserAccount UA ON Sales.UserId = UA.Id
+                                        WHERE Sales.CustomerId=@CustomerId";
+                    sqlConn.Open();
+                    //MessageBox.Show("Connected to DB", "PharnaZeal");
+                    //sqlCmd = new SqlCommand("SELECT * FROM Customer", sqlConn);
+                    sqlCmd = new SqlCommand(sqlQuery, sqlConn);
+                    sqlCmd.Parameters.AddWithValue("@CustomerId", custId);
+                    dataTable = new DataTable("Customers");
+                    sqlDataAdapter = new SqlDataAdapter(sqlCmd);
+                    sqlDataAdapter.Fill(dataTable);
+
+                    dgvPrescriptionHistory.AutoGenerateColumns = false;
+
+                    dgvPrescriptionHistory.DataSource = dataTable;
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "PharmaZeal");
+                }
+                finally
+                {
+                    sqlConn?.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         private void txtSearchCustomer_TextChanged(object sender, EventArgs e)
         {
             //var bd = (BindingSource)dataGridCustomer.DataSource;
@@ -90,17 +146,17 @@ namespace PrescriptionManagementSystem
             //dt.DefaultView.RowFilter = string.Format("LibService like '%{0}%'", txtSearchCustomer.Text.Trim().Replace("'", "''"));
             //dataGridCustomer.Refresh();
             BindingSource bindingSource = new();
-            bindingSource.DataSource = dataGridCustomer.DataSource;
+            bindingSource.DataSource = dgvCustomer.DataSource;
             bindingSource.Filter = "FirstName like '%" + txtSearchCustomer.Text + "%'";
-            dataGridCustomer.DataSource = bindingSource.DataSource;
+            dgvCustomer.DataSource = bindingSource.DataSource;
         }
 
         private void dataGridCustomer_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            var rowCount = dataGridCustomer.Rows.Count;
+            var rowCount = dgvCustomer.Rows.Count;
             if (rowCount > 0)
             {
-                foreach (DataGridViewRow row in dataGridCustomer.Rows)
+                foreach (DataGridViewRow row in dgvCustomer.Rows)
                 {
                     //vulnerable.ToString().Trim()) || vulnerable != DBNull.Value
                     var vulnerable = row.Cells["Vulnerable"].Value;
@@ -110,9 +166,9 @@ namespace PrescriptionManagementSystem
                         if ((bool)vulnerable == true)
                         {
                             //MessageBox.Show(vulnerable.ToString(), "PharmaZeal OnBinding");
-                            dataGridCustomer.Rows[row.Index].DefaultCellStyle.ForeColor = Color.Red;
-                            dataGridCustomer.Rows[row.Index].DefaultCellStyle.SelectionBackColor = Color.AntiqueWhite;
-                            dataGridCustomer.Rows[row.Index].DefaultCellStyle.SelectionForeColor = Color.Red;
+                            dgvCustomer.Rows[row.Index].DefaultCellStyle.ForeColor = Color.Red;
+                            dgvCustomer.Rows[row.Index].DefaultCellStyle.SelectionBackColor = Color.AntiqueWhite;
+                            dgvCustomer.Rows[row.Index].DefaultCellStyle.SelectionForeColor = Color.Red;
                         }
                     }
                     //if (vulnerable == true)
@@ -122,8 +178,9 @@ namespace PrescriptionManagementSystem
 
         private void dataGridCustomer_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var rowIndex = dataGridCustomer.Rows[e.RowIndex].Index;
-            customerId = (int)dataGridCustomer.Rows[rowIndex].Cells["Id"].Value;
+            var rowIndex = dgvCustomer.Rows[e.RowIndex].Index;
+            customerId = (int)dgvCustomer.Rows[rowIndex].Cells["Id"].Value;
+            AppConfig.customerName = $"{dgvCustomer.Rows[rowIndex].Cells["FirstName"].Value.ToString()} {dgvCustomer.Rows[rowIndex].Cells["LastName"].Value.ToString()} ";
             //MessageBox.Show(customerId.ToString(), "PharmaZeal");
             //var customerName = dataGridCustomer.Rows[rowIndex].Cells["FirstName"].Value.ToString() + " " + dataGridCustomer.Rows[rowIndex].Cells["OtherName"].Value.ToString() + " " + dataGridCustomer.Rows[rowIndex].Cells["LastName"].Value.ToString();
             //CustomerHistory customerHistory = new CustomerHistory(customerName);
@@ -132,8 +189,9 @@ namespace PrescriptionManagementSystem
             panelPrescriptionHistory.Visible = true;
             //panelHistory.Visible = true;
             this.Height = 926;
-            dataGridCustomer.Enabled = false;
-            dataGridCustomer.ReadOnly = true;
+            dgvCustomer.Enabled = false;
+            dgvCustomer.ReadOnly = true;
+            GetCustomerPrescriptionHistory(customerId);
             //dataGridCustomer.ForeColor = Color.Black;
             //dataGridCustomer.ClearSelection();
         }
@@ -149,8 +207,8 @@ namespace PrescriptionManagementSystem
         private void btnHideHistory_Click(object sender, EventArgs e)
         {
             panelPrescriptionHistory.Visible = false;
-            dataGridCustomer.Enabled = true;
-            dataGridCustomer.ReadOnly = false;
+            dgvCustomer.Enabled = true;
+            dgvCustomer.ReadOnly = false;
             AppConfig.customerId = 0;
             this.Height = 626;
         }
@@ -162,14 +220,10 @@ namespace PrescriptionManagementSystem
 
         private void btnCustSale_Click(object sender, EventArgs e)
         {
-            this.Close();
             AppConfig.customerId = customerId;
-            SalesForm salesForm = new SalesForm(AppConfig.customerId);
-            salesForm.FormLoad();
-            //salesForm.Invalidate();
-            //salesForm.Refresh();
-            //salesForm.Close();
-            //salesForm.ShowDialog();
+            this.salesForm.CustomerId = $"{AppConfig.customerId.ToString()} {AppConfig.customerName}" ;
+            
+            this.Close();
         }
     }
 }

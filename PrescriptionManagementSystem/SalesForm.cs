@@ -1,4 +1,5 @@
-﻿using PrescriptionManagementSystem.Data.DTOs;
+﻿//using Microsoft.Office.Interop.Excel;
+using PrescriptionManagementSystem.Data.DTOs;
 using PrescriptionManagementSystem.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -23,47 +24,61 @@ namespace PrescriptionManagementSystem
         SqlTransaction sqlTransaction;
         string listItems = "";
         decimal total = 0;
+        //string customerId;
         public SalesForm()
         {
             InitializeComponent();
+            AppConfig.getDBConnection();
             sqlConn = AppConfig.sqlConn;
             GetDrugsData();
+            lblCustomerId.Text = "";
+            //var salesItems = AppConfig.SalesItemDTOs;
+            //dataGridDrugs.AutoGenerateColumns = false;
+            //dataGridDrugs.DataSource = AppConfig.SalesItemDTOs;
         }
 
-        public SalesForm(int custId)
+        public SalesForm(string custId)
         {
             InitializeComponent();
             sqlConn = AppConfig.sqlConn;
-            GetDrugsData();
-            customerId = custId;
-            
+            //GetDrugsData();
+            //customerId = custId;
+            //lblCustomerId.Text = customerId;
+
         }
 
-        public int customerId { get; set; }
+        public string CustomerId
+        {
+            get { return lblCustomerId.Text; }
+            set { lblCustomerId.Text = value; }
+        }
 
         private void SalesForm_Load(object sender, EventArgs e)
         {
             FormLoad();
-            
-
         }
 
         public void FormLoad()
         {
-            this.dataGridDrugs.ScrollBars = ScrollBars.Both;
-            this.dataGridDrugs.Columns["DrugName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridDrugs.Columns["Condition"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridDrugs.Columns["UnitCost"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            this.dataGridDrugs.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            this.dataGridDrugs.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridDrugs.ScrollBars = ScrollBars.Both;
+            dataGridDrugs.Columns["DrugName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridDrugs.Columns["Condition"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridDrugs.Columns["UnitCost"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridDrugs.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridDrugs.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             listItems = "{0, -5} | {1, -30} | {2, -7} | {3, -7}";
             lstBoxReceipt.Items.Add("--------------------------------------------------------");
             lstBoxReceipt.Items.Add(string.Format(listItems, "Qty", "Drug", "Unit Cost", "Price"));
             lstBoxReceipt.Items.Add("--------------------------------------------------------");
-            MessageBox.Show(AppConfig.customerId.ToString());
+            //MessageBox.Show(AppConfig.customerId.ToString());
             //lblCustomerId.Text += AppConfig.customerId.ToString();
-            lblCustomerId.Text += customerId.ToString();
+            //lblCustomerId.Text += customerId.ToString();
+            //lblCustomerId.Text += AppConfig.customerId.ToString();
+            //txtSearchDrug.Text = AppConfig.customerId.ToString();
+            //lblCustomerId.Refresh();
+
         }
+
 
         private void ConnectDB()
         {
@@ -78,27 +93,28 @@ namespace PrescriptionManagementSystem
 
             try
             {
-                string sqlQuery = "SELECT p.Id AS DrugId, p.[Name],p.[Condition], p.IdCheck, p.InStoke, p.InHanley, p.InFenton, p.InTunstall, p.InLongton," +
-                    " s.UnitCost, s.Quantity, s.Id AS StockId  " +
+                string sqlQuery = "SELECT p.Id AS DrugId, p.[Name],p.[Condition], p.IdCheck, p.InStoke, p.InHanley, " +
+                    "p.InFenton, p.InTunstall, p.InLongton, s.UnitCost, s.Quantity, s.Id AS StockId " +
                     "FROM PharmaDrugs p  JOIN Stock s ON p.Id =  s.DrugId"; // WHERE p.InStoke = @InStoke
 
                 //string sqlQuery = "SELECT p.[Name],p.[Condition], p.IdCheck, p.Id AS DrugId, s.UnitCost, s.Quantity, s.Id AS StockId  " +
                 //    "FROM PharmaDrugs p  JOIN Stock s ON p.Id =  s.DrugId WHERE p.InStoke=1";
 
 
-                sqlCmd = new SqlCommand(sqlQuery, sqlConn);
+                //sqlCmd = new SqlCommand(sqlQuery, sqlConn);
                 //sqlCmd.Parameters.AddWithValue("@InStoke", AppConfig.loggedInStoreId);
 
                 if (sqlConn.State == ConnectionState.Closed)
                     sqlConn.Open();
                 dataTable = new DataTable("Drugs");
-                sqlDataAdapter = new SqlDataAdapter(sqlCmd);
-                //sqlDataAdapter = new SqlDataAdapter(sqlQuery, sqlConn);
+                //sqlDataAdapter = new SqlDataAdapter(sqlCmd);
+                sqlDataAdapter = new SqlDataAdapter(sqlQuery, sqlConn);
                 sqlDataAdapter.Fill(dataTable);
 
                 dataGridDrugs.AutoGenerateColumns = false;
 
                 dataGridDrugs.DataSource = dataTable;
+                
 
 
             }
@@ -118,6 +134,7 @@ namespace PrescriptionManagementSystem
             bindingSource.DataSource = dataGridDrugs.DataSource;
             bindingSource.Filter = "Name like '%" + txtSearchDrug.Text + "%'";
             dataGridDrugs.DataSource = bindingSource.DataSource;
+            lblCustomerId.Text = txtSearchDrug.Text;
         }
 
         private void ImgClose_Click(object sender, EventArgs e)
@@ -158,92 +175,87 @@ namespace PrescriptionManagementSystem
         {
 
             //MessageBox.Show(e.RowIndex.ToString(), "PharmaZeal Cell Change");
-            if (e.RowIndex > -1)
+            try
             {
-                //MessageBox.Show(e.RowIndex.ToString(), "PharmaZeal Cell Change");
-                var rowItem = dataGridDrugs.Rows[e.RowIndex];
-                if (e.ColumnIndex == 10) // Checking if the column is the right one (Quantity)
+                if (e.RowIndex > -1)
                 {
-                    if (!string.IsNullOrEmpty(rowItem.Cells["Quantity"].Value?.ToString().Trim()))
+                    //MessageBox.Show(e.RowIndex.ToString(), "PharmaZeal Cell Change");
+                    var rowItem = dataGridDrugs.Rows[e.RowIndex];
+                    if (e.ColumnIndex == 10) // Checking if the column is the right one (Quantity)
                     {
-                        int qty2Buy;
-                        int qtyAvailable;
-                        bool isNumeric;
-                        isNumeric = int.TryParse(rowItem.Cells["Quantity"].Value?.ToString().Trim(), out qty2Buy);
-                        int.TryParse(rowItem.Cells["AvailableQty"].Value?.ToString(), out qtyAvailable);
-
-                        if (qtyAvailable < qty2Buy)
+                        if ((bool)rowItem.Cells[$"{AppConfig.loggedInUserStore}"].Value == false)
                         {
-                            MessageBox.Show("Quantity to buy exceed available stock quantity", "PharmaZeal");
+                            
                             rowItem.Cells["Quantity"].Value = "";
-                            rowItem.Cells["Quantity"].Selected = true;
+                            
+                            dataGridDrugs.CancelEdit();
+                            MessageBox.Show("This item is not available in this store", "PharmaZeal");
                             return;
                         }
-                        if (!isNumeric)
+                        if (!string.IsNullOrEmpty(rowItem.Cells["Quantity"].Value?.ToString().Trim()))
                         {
-                            MessageBox.Show("Enter integer value", "PharmaZeal");
-                            rowItem.Cells["Quantity"].Value = "0";
-                            rowItem.Cells["Quantity"].Selected = true;
-                            return;
-                        }
-                        var currentVaaue = qty2Buy;
+                            int qty2Buy;
+                            int qtyAvailable;
+                            bool isNumeric;
+                            isNumeric = int.TryParse(rowItem.Cells["Quantity"].Value?.ToString().Trim(), out qty2Buy);
+                            int.TryParse(rowItem.Cells["AvailableQty"].Value?.ToString(), out qtyAvailable);
 
-                        var currentPrice = rowItem.Cells["Price"].Value?.ToString() != null ? rowItem.Cells["Price"].Value : "0";
+                            if (qtyAvailable < qty2Buy)
+                            {
+                                MessageBox.Show("Quantity to buy exceed available stock quantity", "PharmaZeal");
+                                rowItem.Cells["Quantity"].Value = "";
+                                rowItem.Cells["Quantity"].Selected = true;
+                                return;
+                            }
+                            if (!isNumeric)
+                            {
+                                MessageBox.Show("Enter integer value", "PharmaZeal");
+                                rowItem.Cells["Quantity"].Value = "0";
+                                rowItem.Cells["Quantity"].Selected = true;
+                                return;
+                            }
+                            var currentVaaue = qty2Buy;
 
-                        if (qty2Buy == 0)
-                        {
-                            //rowItem.Cells["Price"].Value = qty2Buy * Convert.ToDecimal(rowItem.Cells["UnitCOst"].Value?.ToString().Trim());
-                            total -= Convert.ToDecimal(rowItem.Cells["Price"].Value?.ToString());
+                            var currentPrice = rowItem.Cells["Price"].Value?.ToString() != null ? rowItem.Cells["Price"].Value : "0";
+
+                            if (qty2Buy == 0)
+                            {
+                                //rowItem.Cells["Price"].Value = qty2Buy * Convert.ToDecimal(rowItem.Cells["UnitCOst"].Value?.ToString().Trim());
+                                total -= Convert.ToDecimal(rowItem.Cells["Price"].Value?.ToString());
+                                txtTotalPayable.Text = total.ToString();
+                                rowItem.Cells["Price"].Value = "";
+                                return;
+                            }
+                            
+
+                            rowItem.Cells["Price"].Value = qty2Buy * Convert.ToDecimal(rowItem.Cells["UnitCOst"].Value?.ToString().Trim());
+                            rowItem.Cells["chkAddToList"].ReadOnly = false;
+                            total += Convert.ToDecimal(rowItem.Cells["Price"].Value?.ToString());
                             txtTotalPayable.Text = total.ToString();
-                            rowItem.Cells["Price"].Value = "";
-                            return;
+
+                            //MessageBox.Show($"Lost Focus: {qtyAvailable}", "PharmaZeal",MessageBoxButtons.OK ,MessageBoxIcon.Warning);
                         }
-                        //else
-                        //{
-                        //    rowItem.Cells["Price"].Value = qty2Buy * Convert.ToDecimal(rowItem.Cells["UnitCOst"].Value?.ToString().Trim());
-                        //    rowItem.Cells["chkAddToList"].ReadOnly = false;
-                        //    total += Convert.ToDecimal(rowItem.Cells["Price"].Value?.ToString());
-                        //    txtTotalPayable.Text = total.ToString();
-                        //}
-
-                        rowItem.Cells["Price"].Value = qty2Buy * Convert.ToDecimal(rowItem.Cells["UnitCOst"].Value?.ToString().Trim());
-                        rowItem.Cells["chkAddToList"].ReadOnly = false;
-                        total += Convert.ToDecimal(rowItem.Cells["Price"].Value?.ToString());
-                        txtTotalPayable.Text = total.ToString();
-
-                        //MessageBox.Show($"Lost Focus: {qtyAvailable}", "PharmaZeal",MessageBoxButtons.OK ,MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        if (rowItem.Cells["Price"].Value?.ToString() != null)
+                        else
                         {
-                            total -= Convert.ToDecimal(rowItem.Cells["Price"].Value?.ToString());
-                            txtTotalPayable.Text = total.ToString();
-                            rowItem.Cells["Price"].Value = "";
+                            if (rowItem.Cells["Price"].Value?.ToString() != null)
+                            {
+                                total -= Convert.ToDecimal(rowItem.Cells["Price"].Value?.ToString());
+                                txtTotalPayable.Text = total.ToString();
+                                rowItem.Cells["Price"].Value = "";
+                            }
                         }
+
                     }
 
                 }
-
-
-
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "PharmaZeal");
             }
 
 
-            //var rowCount = dataGridDrugs.Rows.Count;
-            //if (rowCount > 0)
-            //{
-            //    //MessageBox.Show(rowCount.ToString(), "PharmaZeal");
-            //    foreach (DataGridViewRow rowItem in dataGridDrugs.Rows)
-            //    {
-            //        dataGridDrugs.Rows[rowItem.Index].HeaderCell.Value = (rowItem.Index + 1).ToString();
-
-            //        rowItem.Cells["Price"].Value = Convert.ToInt32(rowItem.Cells["Quantity"].Value.ToString()) * Convert.ToInt32(rowItem.Cells["UnitCOst"].Value.ToString());
-            //        //rowItem.Cells["Quantity"].Value = "0.00";
-            //        //dataGridCustomer.Rows[rowItem.Index].Cells["sn"].Value = (rowItem.Index + 1).ToString();
-            //    }
-            //}
+            
 
         }
 
@@ -391,7 +403,7 @@ namespace PrescriptionManagementSystem
             //MessageBox.Show($"{rowItem}", "PharmaZeal");
 
 
-            SaveSales(saleDate, Convert.ToDecimal(saleAmount), 0.00M, AppConfig.loggedInUserId, customerId); ;
+            SaveSales(saleDate, Convert.ToDecimal(saleAmount), 0.00M, AppConfig.loggedInUserId, AppConfig.customerId); ;
 
         }
 
@@ -405,17 +417,18 @@ namespace PrescriptionManagementSystem
             //}
         }
 
-        private void SaveSales(DateTime salesDate, decimal amount, decimal tax, int usedId, int customerId)
+        private void SaveSales(DateTime salesDate, decimal amount, decimal tax, int usedId, int? customerId)
         {
             try
             {
                 sqlConn.Open();
                 sqlTransaction = sqlConn.BeginTransaction();
                 var QueryString = "";
+                customerId =  customerId == 0 ? null : customerId;
                 MessageBox.Show("Saving Record", "PharmaZeal");
                 QueryString = "INSERT INTO Sales " +
-                            "(DateSold, AmountPaid, Tax_percentage, UserId)" +
-                            "Values (@DateSold, @Amount, @Tax, @UserId)" +
+                            "(DateSold, AmountPaid, Tax_percentage, UserId, CustomerId)" +
+                            "Values (@DateSold, @Amount, @Tax, @UserId, @CustomerId)" +
                             "SELECT CAST(scope_identity() AS int)";
 
 
@@ -426,6 +439,7 @@ namespace PrescriptionManagementSystem
                 cmd.Parameters.AddWithValue("@Amount", amount);
                 cmd.Parameters.AddWithValue("@Tax", tax);
                 cmd.Parameters.AddWithValue("@UserId", usedId);
+                cmd.Parameters.AddWithValue("@CustomerId", (object)customerId ?? DBNull.Value);
 
 
 
@@ -447,6 +461,8 @@ namespace PrescriptionManagementSystem
                         MessageBox.Show("Process Completed", "PharmaZeal");
                         GetDrugsData();
                         txtAmountPaid.Text = "0.00";
+                        txtTotalPayable.Text = "0.00";
+                        lstBoxReceipt.Items.Clear();
                         lblBalance.Text = "0.00";
                     }
 
@@ -537,6 +553,13 @@ namespace PrescriptionManagementSystem
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            
+            if (txtTotalPayable.Text == "0.00")
+            {
+                MessageBox.Show("No item has been selected", "PharmaZeal");
+                txtAmountPaid.Text = "0.00";
+                return;
+            }
             if (txtAmountPaid.Text != "" || !string.IsNullOrEmpty(txtAmountPaid.Text))
             {
                 var amountPayable = Convert.ToDouble(txtTotalPayable.Text.Trim());
@@ -553,8 +576,16 @@ namespace PrescriptionManagementSystem
         private void btnSearchCustomer_Click(object sender, EventArgs e)
         {
             //this.Hide();
-            CustomerSearchForm customerSearchForm = new CustomerSearchForm("sales");
+            lblCustomerId.Text = "Searching customer";
+            //CustomerSearchForm customerSearchForm = new CustomerSearchForm("sales");
+            CustomerSearchForm customerSearchForm = new CustomerSearchForm(this);
             customerSearchForm.ShowDialog();
+        }
+
+        public void button1_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show(sender.ToString());
+            //this.UpdateCustomerId("Felas");
         }
     }
 }

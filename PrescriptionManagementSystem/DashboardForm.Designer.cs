@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             label1 = new Label();
             dtpStartDate = new DateTimePicker();
             dtpEndDate = new DateTimePicker();
@@ -300,70 +300,70 @@
             // chartGrossRevenue
             // 
             chartGrossRevenue.BackColor = Color.FromArgb(42, 45, 86);
-            chartArea1.AxisX.LabelStyle.ForeColor = Color.Gainsboro;
-            chartArea1.AxisX.LineColor = Color.White;
-            chartArea1.AxisX.LineWidth = 0;
-            chartArea1.AxisX.MajorGrid.LineColor = Color.White;
-            chartArea1.AxisX.MajorGrid.LineWidth = 0;
-            chartArea1.AxisX.MajorTickMark.LineColor = Color.FromArgb(73, 75, 111);
-            chartArea1.AxisX.MajorTickMark.Size = 3F;
-            chartArea1.AxisY.LabelStyle.ForeColor = Color.Gainsboro;
-            chartArea1.AxisY.LabelStyle.Format = "£(0)";
-            chartArea1.AxisY.LineColor = Color.White;
-            chartArea1.AxisY.LineWidth = 0;
-            chartArea1.AxisY.MajorGrid.LineColor = Color.FromArgb(73, 75, 111);
-            chartArea1.AxisY.MajorTickMark.LineColor = Color.FromArgb(73, 75, 111);
-            chartArea1.BackColor = Color.FromArgb(42, 45, 86);
-            chartArea1.Name = "ChartArea1";
-            chartGrossRevenue.ChartAreas.Add(chartArea1);
-            legend1.BackColor = Color.FromArgb(42, 45, 86);
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend1.ForeColor = Color.FromArgb(192, 162, 255);
-            legend1.Name = "Legend1";
-            chartGrossRevenue.Legends.Add(legend1);
+            chartArea3.AxisX.LabelStyle.ForeColor = Color.Gainsboro;
+            chartArea3.AxisX.LineColor = Color.White;
+            chartArea3.AxisX.LineWidth = 0;
+            chartArea3.AxisX.MajorGrid.LineColor = Color.White;
+            chartArea3.AxisX.MajorGrid.LineWidth = 0;
+            chartArea3.AxisX.MajorTickMark.LineColor = Color.FromArgb(73, 75, 111);
+            chartArea3.AxisX.MajorTickMark.Size = 3F;
+            chartArea3.AxisY.LabelStyle.ForeColor = Color.Gainsboro;
+            chartArea3.AxisY.LabelStyle.Format = "£(0)";
+            chartArea3.AxisY.LineColor = Color.White;
+            chartArea3.AxisY.LineWidth = 0;
+            chartArea3.AxisY.MajorGrid.LineColor = Color.FromArgb(73, 75, 111);
+            chartArea3.AxisY.MajorTickMark.LineColor = Color.FromArgb(73, 75, 111);
+            chartArea3.BackColor = Color.FromArgb(42, 45, 86);
+            chartArea3.Name = "ChartArea1";
+            chartGrossRevenue.ChartAreas.Add(chartArea3);
+            legend3.BackColor = Color.FromArgb(42, 45, 86);
+            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend3.ForeColor = Color.FromArgb(192, 162, 255);
+            legend3.Name = "Legend1";
+            chartGrossRevenue.Legends.Add(legend3);
             chartGrossRevenue.Location = new Point(12, 152);
             chartGrossRevenue.Name = "chartGrossRevenue";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            chartGrossRevenue.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            chartGrossRevenue.Series.Add(series3);
             chartGrossRevenue.Size = new Size(825, 339);
             chartGrossRevenue.TabIndex = 12;
             chartGrossRevenue.Text = "chart1";
-            title1.Alignment = ContentAlignment.TopLeft;
-            title1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            title1.ForeColor = Color.WhiteSmoke;
-            title1.Name = "Title1";
-            title1.Text = "Gross Revenue";
-            chartGrossRevenue.Titles.Add(title1);
+            title3.Alignment = ContentAlignment.TopLeft;
+            title3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            title3.ForeColor = Color.WhiteSmoke;
+            title3.Name = "Title1";
+            title3.Text = "Gross Revenue";
+            chartGrossRevenue.Titles.Add(title3);
             // 
             // chartTop5Products
             // 
             chartTop5Products.BackColor = Color.FromArgb(42, 45, 86);
-            chartArea2.Name = "ChartArea1";
-            chartTop5Products.ChartAreas.Add(chartArea2);
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend2.Name = "Legend1";
-            chartTop5Products.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            chartTop5Products.ChartAreas.Add(chartArea4);
+            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend4.Name = "Legend1";
+            chartTop5Products.Legends.Add(legend4);
             chartTop5Products.Location = new Point(843, 152);
             chartTop5Products.Name = "chartTop5Products";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            series2.IsValueShownAsLabel = true;
-            series2.LabelForeColor = Color.White;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            chartTop5Products.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            series4.IsValueShownAsLabel = true;
+            series4.LabelForeColor = Color.White;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            chartTop5Products.Series.Add(series4);
             chartTop5Products.Size = new Size(427, 580);
             chartTop5Products.TabIndex = 13;
             chartTop5Products.Text = "chart2";
-            title2.Alignment = ContentAlignment.TopLeft;
-            title2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            title2.ForeColor = Color.WhiteSmoke;
-            title2.Name = "Title1";
-            title2.Text = "Top 5 Products";
-            chartTop5Products.Titles.Add(title2);
+            title4.Alignment = ContentAlignment.TopLeft;
+            title4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            title4.ForeColor = Color.WhiteSmoke;
+            title4.Name = "Title1";
+            title4.Text = "Top 5 Products";
+            chartTop5Products.Titles.Add(title4);
             // 
             // panel4
             // 
@@ -493,12 +493,14 @@
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnClose.ForeColor = Color.WhiteSmoke;
             btnClose.Location = new Point(1245, 17);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(40, 40);
             btnClose.TabIndex = 146;
             btnClose.Text = "X";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // lblStartDate
             // 

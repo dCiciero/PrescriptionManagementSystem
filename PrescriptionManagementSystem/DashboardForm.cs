@@ -175,5 +175,10 @@ namespace PrescriptionManagementSystem
             lblStartDate.Text = dtpStartDate.Text;
             lblEndDate.Text = dtpEndDate.Text;
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

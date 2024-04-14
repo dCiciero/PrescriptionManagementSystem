@@ -35,18 +35,14 @@
             panelPrescriptionHistory = new Panel();
             btnCustSale = new Button();
             btnHideHistory = new Button();
-            dataGridPrescriptionHistory = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dgvPrescriptionHistory = new DataGridView();
             panel3 = new Panel();
             lbltitle = new Label();
             btnClose = new Button();
             panel1 = new Panel();
             panel2 = new Panel();
             panel5 = new Panel();
-            dataGridCustomer = new DataGridView();
+            dgvCustomer = new DataGridView();
             FirstName = new DataGridViewTextBoxColumn();
             OtherName = new DataGridViewTextBoxColumn();
             LastName = new DataGridViewTextBoxColumn();
@@ -62,12 +58,16 @@
             Id = new DataGridViewTextBoxColumn();
             lblFirstname = new Label();
             txtSearchCustomer = new TextBox();
+            ProductName = new DataGridViewTextBoxColumn();
+            Condition = new DataGridViewTextBoxColumn();
+            DateSold = new DataGridViewTextBoxColumn();
+            SoldBy = new DataGridViewTextBoxColumn();
             panelPrescriptionHistory.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridPrescriptionHistory).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPrescriptionHistory).BeginInit();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridCustomer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomer).BeginInit();
             SuspendLayout();
             // 
             // panelPrescriptionHistory
@@ -75,7 +75,7 @@
             panelPrescriptionHistory.BackColor = Color.WhiteSmoke;
             panelPrescriptionHistory.Controls.Add(btnCustSale);
             panelPrescriptionHistory.Controls.Add(btnHideHistory);
-            panelPrescriptionHistory.Controls.Add(dataGridPrescriptionHistory);
+            panelPrescriptionHistory.Controls.Add(dgvPrescriptionHistory);
             panelPrescriptionHistory.Dock = DockStyle.Bottom;
             panelPrescriptionHistory.Location = new Point(0, 549);
             panelPrescriptionHistory.Name = "panelPrescriptionHistory";
@@ -108,15 +108,15 @@
             btnHideHistory.UseVisualStyleBackColor = true;
             btnHideHistory.Click += btnHideHistory_Click;
             // 
-            // dataGridPrescriptionHistory
+            // dgvPrescriptionHistory
             // 
-            dataGridPrescriptionHistory.AllowUserToAddRows = false;
-            dataGridPrescriptionHistory.AllowUserToDeleteRows = false;
-            dataGridPrescriptionHistory.AllowUserToResizeColumns = false;
-            dataGridPrescriptionHistory.AllowUserToResizeRows = false;
-            dataGridPrescriptionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridPrescriptionHistory.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
-            dataGridPrescriptionHistory.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvPrescriptionHistory.AllowUserToAddRows = false;
+            dgvPrescriptionHistory.AllowUserToDeleteRows = false;
+            dgvPrescriptionHistory.AllowUserToResizeColumns = false;
+            dgvPrescriptionHistory.AllowUserToResizeRows = false;
+            dgvPrescriptionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPrescriptionHistory.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
+            dgvPrescriptionHistory.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.SteelBlue;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
@@ -124,9 +124,9 @@
             dataGridViewCellStyle1.SelectionBackColor = Color.SteelBlue;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridPrescriptionHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridPrescriptionHistory.ColumnHeadersHeight = 40;
-            dataGridPrescriptionHistory.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, dataGridViewTextBoxColumn1 });
+            dgvPrescriptionHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvPrescriptionHistory.ColumnHeadersHeight = 40;
+            dgvPrescriptionHistory.Columns.AddRange(new DataGridViewColumn[] { ProductName, Condition, DateSold, SoldBy });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.White;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -134,51 +134,19 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.RoyalBlue;
             dataGridViewCellStyle2.SelectionForeColor = Color.White;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridPrescriptionHistory.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridPrescriptionHistory.EnableHeadersVisualStyles = false;
-            dataGridPrescriptionHistory.Location = new Point(11, 63);
-            dataGridPrescriptionHistory.MultiSelect = false;
-            dataGridPrescriptionHistory.Name = "dataGridPrescriptionHistory";
-            dataGridPrescriptionHistory.ReadOnly = true;
-            dataGridPrescriptionHistory.RowHeadersVisible = false;
-            dataGridPrescriptionHistory.RowHeadersWidth = 30;
-            dataGridPrescriptionHistory.RowTemplate.DividerHeight = 2;
-            dataGridPrescriptionHistory.RowTemplate.Height = 34;
-            dataGridPrescriptionHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPrescriptionHistory.Size = new Size(1367, 301);
-            dataGridPrescriptionHistory.TabIndex = 27;
-            // 
-            // Column1
-            // 
-            Column1.DataPropertyName = "DrugName";
-            Column1.HeaderText = "Drug Name";
-            Column1.MinimumWidth = 8;
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            Column2.DataPropertyName = "Condition";
-            Column2.HeaderText = "Condition";
-            Column2.MinimumWidth = 8;
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            Column3.DataPropertyName = "DateGiven";
-            Column3.HeaderText = "Date Administered";
-            Column3.MinimumWidth = 20;
-            Column3.Name = "Column3";
-            Column3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.DataPropertyName = "PrescribedBy";
-            dataGridViewTextBoxColumn1.HeaderText = "Prescribed By";
-            dataGridViewTextBoxColumn1.MinimumWidth = 8;
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.ReadOnly = true;
+            dgvPrescriptionHistory.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvPrescriptionHistory.EnableHeadersVisualStyles = false;
+            dgvPrescriptionHistory.Location = new Point(11, 63);
+            dgvPrescriptionHistory.MultiSelect = false;
+            dgvPrescriptionHistory.Name = "dgvPrescriptionHistory";
+            dgvPrescriptionHistory.ReadOnly = true;
+            dgvPrescriptionHistory.RowHeadersVisible = false;
+            dgvPrescriptionHistory.RowHeadersWidth = 30;
+            dgvPrescriptionHistory.RowTemplate.DividerHeight = 2;
+            dgvPrescriptionHistory.RowTemplate.Height = 34;
+            dgvPrescriptionHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPrescriptionHistory.Size = new Size(1367, 301);
+            dgvPrescriptionHistory.TabIndex = 27;
             // 
             // panel3
             // 
@@ -220,7 +188,7 @@
             // panel1
             // 
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(dataGridCustomer);
+            panel1.Controls.Add(dgvCustomer);
             panel1.Controls.Add(lblFirstname);
             panel1.Controls.Add(txtSearchCustomer);
             panel1.Dock = DockStyle.Fill;
@@ -246,16 +214,16 @@
             panel5.Size = new Size(1362, 5);
             panel5.TabIndex = 23;
             // 
-            // dataGridCustomer
+            // dgvCustomer
             // 
-            dataGridCustomer.AllowUserToAddRows = false;
-            dataGridCustomer.AllowUserToDeleteRows = false;
-            dataGridCustomer.AllowUserToResizeColumns = false;
-            dataGridCustomer.AllowUserToResizeRows = false;
-            dataGridCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridCustomer.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridCustomer.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
-            dataGridCustomer.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvCustomer.AllowUserToAddRows = false;
+            dgvCustomer.AllowUserToDeleteRows = false;
+            dgvCustomer.AllowUserToResizeColumns = false;
+            dgvCustomer.AllowUserToResizeRows = false;
+            dgvCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvCustomer.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvCustomer.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
+            dgvCustomer.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.SteelBlue;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
@@ -263,9 +231,9 @@
             dataGridViewCellStyle3.SelectionBackColor = Color.SteelBlue;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridCustomer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridCustomer.ColumnHeadersHeight = 40;
-            dataGridCustomer.Columns.AddRange(new DataGridViewColumn[] { FirstName, OtherName, LastName, Column4, Age, Column5, Column6, Column7, Column8, Column9, Column10, Vulnerable, Id });
+            dgvCustomer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvCustomer.ColumnHeadersHeight = 40;
+            dgvCustomer.Columns.AddRange(new DataGridViewColumn[] { FirstName, OtherName, LastName, Column4, Age, Column5, Column6, Column7, Column8, Column9, Column10, Vulnerable, Id });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = Color.White;
             dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -273,21 +241,21 @@
             dataGridViewCellStyle4.SelectionBackColor = Color.RoyalBlue;
             dataGridViewCellStyle4.SelectionForeColor = Color.White;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridCustomer.DefaultCellStyle = dataGridViewCellStyle4;
-            dataGridCustomer.EnableHeadersVisualStyles = false;
-            dataGridCustomer.Location = new Point(19, 162);
-            dataGridCustomer.MultiSelect = false;
-            dataGridCustomer.Name = "dataGridCustomer";
-            dataGridCustomer.ReadOnly = true;
-            dataGridCustomer.RowHeadersVisible = false;
-            dataGridCustomer.RowHeadersWidth = 30;
-            dataGridCustomer.RowTemplate.DividerHeight = 2;
-            dataGridCustomer.RowTemplate.Height = 34;
-            dataGridCustomer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridCustomer.Size = new Size(1359, 318);
-            dataGridCustomer.TabIndex = 28;
-            dataGridCustomer.CellDoubleClick += dataGridCustomer_CellContentDoubleClick;
-            dataGridCustomer.DataBindingComplete += dataGridCustomer_DataBindingComplete;
+            dgvCustomer.DefaultCellStyle = dataGridViewCellStyle4;
+            dgvCustomer.EnableHeadersVisualStyles = false;
+            dgvCustomer.Location = new Point(19, 162);
+            dgvCustomer.MultiSelect = false;
+            dgvCustomer.Name = "dgvCustomer";
+            dgvCustomer.ReadOnly = true;
+            dgvCustomer.RowHeadersVisible = false;
+            dgvCustomer.RowHeadersWidth = 30;
+            dgvCustomer.RowTemplate.DividerHeight = 2;
+            dgvCustomer.RowTemplate.Height = 34;
+            dgvCustomer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCustomer.Size = new Size(1359, 318);
+            dgvCustomer.TabIndex = 28;
+            dgvCustomer.CellDoubleClick += dataGridCustomer_CellContentDoubleClick;
+            dgvCustomer.DataBindingComplete += dataGridCustomer_DataBindingComplete;
             // 
             // FirstName
             // 
@@ -441,6 +409,38 @@
             txtSearchCustomer.TabIndex = 27;
             txtSearchCustomer.TextChanged += txtSearchCustomer_TextChanged;
             // 
+            // ProductName
+            // 
+            ProductName.DataPropertyName = "ProductName";
+            ProductName.HeaderText = "Drug Name";
+            ProductName.MinimumWidth = 8;
+            ProductName.Name = "ProductName";
+            ProductName.ReadOnly = true;
+            // 
+            // Condition
+            // 
+            Condition.DataPropertyName = "Condition";
+            Condition.HeaderText = "Condition";
+            Condition.MinimumWidth = 8;
+            Condition.Name = "Condition";
+            Condition.ReadOnly = true;
+            // 
+            // DateSold
+            // 
+            DateSold.DataPropertyName = "DateSold";
+            DateSold.HeaderText = "Date Administered";
+            DateSold.MinimumWidth = 20;
+            DateSold.Name = "DateSold";
+            DateSold.ReadOnly = true;
+            // 
+            // SoldBy
+            // 
+            SoldBy.DataPropertyName = "SoldBy";
+            SoldBy.HeaderText = "Sold By";
+            SoldBy.MinimumWidth = 8;
+            SoldBy.Name = "SoldBy";
+            SoldBy.ReadOnly = true;
+            // 
             // CustomerSearchForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -456,35 +456,31 @@
             Text = "CustomerSearchForm";
             Load += CustomerSearchForm_Load;
             panelPrescriptionHistory.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridPrescriptionHistory).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPrescriptionHistory).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridCustomer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomer).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private TextBox txtFirstName;
         private DataGridView dataGridViewHistory;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private Panel panelHistory;
         private Panel panel4;
         private Panel panelPrescriptionHistory;
         private Button btnHideHistory;
-        private DataGridView dataGridPrescriptionHistory;
+        private DataGridView dgvPrescriptionHistory;
         private Panel panel3;
         private Button btnClose;
         private Panel panel1;
         private Label lbltitle;
         private Panel panel2;
         private Panel panel5;
-        private DataGridView dataGridCustomer;
+        private DataGridView dgvCustomer;
         private Label lblFirstname;
         private TextBox txtSearchCustomer;
         private DataGridViewTextBoxColumn FirstName;
@@ -501,5 +497,9 @@
         private DataGridViewTextBoxColumn Vulnerable;
         private DataGridViewTextBoxColumn Id;
         private Button btnCustSale;
+        private DataGridViewTextBoxColumn ProductName;
+        private DataGridViewTextBoxColumn Condition;
+        private DataGridViewTextBoxColumn DateSold;
+        private DataGridViewTextBoxColumn SoldBy;
     }
 }

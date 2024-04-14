@@ -150,7 +150,7 @@
             // 
             changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
             changePasswordToolStripMenuItem.Size = new Size(274, 34);
-            changePasswordToolStripMenuItem.Text = "Change Password";
+            changePasswordToolStripMenuItem.Text = "Dashboard";
             changePasswordToolStripMenuItem.Click += changePasswordToolStripMenuItem_Click;
             // 
             // salesToolStripMenuItem
