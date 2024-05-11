@@ -1,4 +1,16 @@
-﻿//using Microsoft.Office.Interop.Excel;
+﻿// ***********************************************************************
+// Assembly         : PrescriptionManagementSystem
+// Author           : ogaga.ivhurie
+// Created          : 04-09-2024
+//
+// Last Modified By : ogaga.ivhurie
+// Last Modified On : 05-04-2024
+// ***********************************************************************
+// <copyright file="SalesForm.cs" company="PrescriptionManagementSystem">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 using PrescriptionManagementSystem.Data.DTOs;
 using PrescriptionManagementSystem.Data.Models;
 using System;
@@ -16,15 +28,41 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace PrescriptionManagementSystem
 {
+    /// <summary>
+    /// Class SalesForm.
+    /// Implements the <see cref="Form" />
+    /// </summary>
+    /// <seealso cref="Form" />
     public partial class SalesForm : Form
     {
+        /// <summary>
+        /// The SQL connection
+        /// </summary>
         SqlConnection sqlConn;
+        /// <summary>
+        /// The SQL command
+        /// </summary>
         SqlCommand sqlCmd;
+        /// <summary>
+        /// The RDR
+        /// </summary>
         SqlDataReader rdr;
+        /// <summary>
+        /// The SQL transaction
+        /// </summary>
         SqlTransaction sqlTransaction;
+        /// <summary>
+        /// The list items
+        /// </summary>
         string listItems = "";
+        /// <summary>
+        /// The total
+        /// </summary>
         decimal total = 0;
         //string customerId;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SalesForm"/> class.
+        /// </summary>
         public SalesForm()
         {
             InitializeComponent();
@@ -32,32 +70,43 @@ namespace PrescriptionManagementSystem
             sqlConn = AppConfig.sqlConn;
             GetDrugsData();
             lblCustomerId.Text = "";
-            //var salesItems = AppConfig.SalesItemDTOs;
-            //dataGridDrugs.AutoGenerateColumns = false;
-            //dataGridDrugs.DataSource = AppConfig.SalesItemDTOs;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SalesForm"/> class.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
         public SalesForm(string custId)
         {
             InitializeComponent();
             sqlConn = AppConfig.sqlConn;
-            //GetDrugsData();
-            //customerId = custId;
-            //lblCustomerId.Text = customerId;
+
 
         }
 
+        /// <summary>
+        /// Gets or sets the customer identifier.
+        /// </summary>
+        /// <value>The customer identifier.</value>
         public string CustomerId
         {
             get { return lblCustomerId.Text; }
             set { lblCustomerId.Text = value; }
         }
 
+        /// <summary>
+        /// Handles the Load event of the SalesForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void SalesForm_Load(object sender, EventArgs e)
         {
             FormLoad();
         }
 
+        /// <summary>
+        /// Forms the load.
+        /// </summary>
         public void FormLoad()
         {
             dataGridDrugs.ScrollBars = ScrollBars.Both;
@@ -70,22 +119,23 @@ namespace PrescriptionManagementSystem
             lstBoxReceipt.Items.Add("--------------------------------------------------------");
             lstBoxReceipt.Items.Add(string.Format(listItems, "Qty", "Drug", "Unit Cost", "Price"));
             lstBoxReceipt.Items.Add("--------------------------------------------------------");
-            //MessageBox.Show(AppConfig.customerId.ToString());
-            //lblCustomerId.Text += AppConfig.customerId.ToString();
-            //lblCustomerId.Text += customerId.ToString();
-            //lblCustomerId.Text += AppConfig.customerId.ToString();
-            //txtSearchDrug.Text = AppConfig.customerId.ToString();
-            //lblCustomerId.Refresh();
+
 
         }
 
 
+        /// <summary>
+        /// Connects the database.
+        /// </summary>
         private void ConnectDB()
         {
             string connectionStr = @"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=PharmaZeal; Integrated Security=True; ";
             sqlConn = new SqlConnection(connectionStr);
         }
 
+        /// <summary>
+        /// Gets the drugs data.
+        /// </summary>
         private void GetDrugsData()
         {
             DataTable dataTable;
@@ -114,7 +164,7 @@ namespace PrescriptionManagementSystem
                 dataGridDrugs.AutoGenerateColumns = false;
 
                 dataGridDrugs.DataSource = dataTable;
-                
+
 
 
             }
@@ -128,20 +178,35 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the txtSearchDrug control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtSearchDrug_TextChanged(object sender, EventArgs e)
         {
             BindingSource bindingSource = new();
             bindingSource.DataSource = dataGridDrugs.DataSource;
             bindingSource.Filter = "Name like '%" + txtSearchDrug.Text + "%'";
             dataGridDrugs.DataSource = bindingSource.DataSource;
-            lblCustomerId.Text = txtSearchDrug.Text;
+            //lblCustomerId.Text = txtSearchDrug.Text;
         }
 
+        /// <summary>
+        /// Handles the Click event of the ImgClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ImgClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the DataBindingComplete event of the dataGridDrugs control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewBindingCompleteEventArgs"/> instance containing the event data.</param>
         private void dataGridDrugs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             var rowCount = dataGridDrugs.Rows.Count;
@@ -171,6 +236,11 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the CellValueChanged event of the dataGridDrugs control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridDrugs_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -183,11 +253,12 @@ namespace PrescriptionManagementSystem
                     var rowItem = dataGridDrugs.Rows[e.RowIndex];
                     if (e.ColumnIndex == 10) // Checking if the column is the right one (Quantity)
                     {
+                        //This prevents the sale of item not available in current store
                         if ((bool)rowItem.Cells[$"{AppConfig.loggedInUserStore}"].Value == false)
                         {
-                            
+
                             rowItem.Cells["Quantity"].Value = "";
-                            
+
                             dataGridDrugs.CancelEdit();
                             MessageBox.Show("This item is not available in this store", "PharmaZeal");
                             return;
@@ -199,6 +270,14 @@ namespace PrescriptionManagementSystem
                             bool isNumeric;
                             isNumeric = int.TryParse(rowItem.Cells["Quantity"].Value?.ToString().Trim(), out qty2Buy);
                             int.TryParse(rowItem.Cells["AvailableQty"].Value?.ToString(), out qtyAvailable);
+
+                            if (qty2Buy > AppConfig.maxSellingQty)
+                            {
+                                MessageBox.Show($"Maximum allowable quantity to sell is {AppConfig.maxSellingQty}", "PharmaZeal");
+                                rowItem.Cells["Quantity"].Value = "";
+                                rowItem.Cells["Quantity"].Selected = true;
+                                return;
+                            }
 
                             if (qtyAvailable < qty2Buy)
                             {
@@ -226,7 +305,7 @@ namespace PrescriptionManagementSystem
                                 rowItem.Cells["Price"].Value = "";
                                 return;
                             }
-                            
+
 
                             rowItem.Cells["Price"].Value = qty2Buy * Convert.ToDecimal(rowItem.Cells["UnitCOst"].Value?.ToString().Trim());
                             rowItem.Cells["chkAddToList"].ReadOnly = false;
@@ -255,12 +334,17 @@ namespace PrescriptionManagementSystem
             }
 
 
-            
+
 
         }
 
 
 
+        /// <summary>
+        /// Handles the CellClick event of the dataGridDrugs control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridDrugs_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //MessageBox.Show(e.ColumnIndex.ToString(), "PharmaZeal Cell Change");
@@ -279,6 +363,11 @@ namespace PrescriptionManagementSystem
             //}
         }
 
+        /// <summary>
+        /// Handles the CellContentClick event of the dataGridDrugs control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridDrugs_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -323,6 +412,11 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the CellStateChanged event of the dataGridDrugs control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellStateChangedEventArgs"/> instance containing the event data.</param>
         private void dataGridDrugs_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
 
@@ -344,6 +438,11 @@ namespace PrescriptionManagementSystem
             //}
         }
 
+        /// <summary>
+        /// Handles the CellLeave event of the dataGridDrugs control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridDrugs_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
             //MessageBox.Show($"Lost Focus: {e.ColumnIndex}", "PharmaZeal");
@@ -368,11 +467,21 @@ namespace PrescriptionManagementSystem
 
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnGenerateReceipt control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnGenerateReceipt_Click(object sender, EventArgs e)
         {
             var saleDate = DateTime.UtcNow;
@@ -407,6 +516,11 @@ namespace PrescriptionManagementSystem
 
         }
 
+        /// <summary>
+        /// Handles the CellDoubleClick event of the dataGridDrugs control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridDrugs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //var rowItem = dataGridDrugs.Rows[e.RowIndex];
@@ -417,6 +531,14 @@ namespace PrescriptionManagementSystem
             //}
         }
 
+        /// <summary>
+        /// Saves the sales.
+        /// </summary>
+        /// <param name="salesDate">The sales date.</param>
+        /// <param name="amount">The amount.</param>
+        /// <param name="tax">The tax.</param>
+        /// <param name="usedId">The used identifier.</param>
+        /// <param name="customerId">The customer identifier.</param>
         private void SaveSales(DateTime salesDate, decimal amount, decimal tax, int usedId, int? customerId)
         {
             try
@@ -424,7 +546,7 @@ namespace PrescriptionManagementSystem
                 sqlConn.Open();
                 sqlTransaction = sqlConn.BeginTransaction();
                 var QueryString = "";
-                customerId =  customerId == 0 ? null : customerId;
+                customerId = customerId == 0 ? null : customerId;
                 MessageBox.Show("Saving Record", "PharmaZeal");
                 QueryString = "INSERT INTO Sales " +
                             "(DateSold, AmountPaid, Tax_percentage, UserId, CustomerId)" +
@@ -482,6 +604,11 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Saves the sales items.
+        /// </summary>
+        /// <param name="saleId">The sale identifier.</param>
+        /// <returns>System.Int32.</returns>
         private int SaveSalesItems(int saleId)
         {
             try
@@ -546,14 +673,24 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnReceipt control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnReceipt_Click(object sender, EventArgs e)
         {
             dataGridDrugs.Refresh();
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the textBox1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
             if (txtTotalPayable.Text == "0.00")
             {
                 MessageBox.Show("No item has been selected", "PharmaZeal");
@@ -573,6 +710,11 @@ namespace PrescriptionManagementSystem
 
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnSearchCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnSearchCustomer_Click(object sender, EventArgs e)
         {
             //this.Hide();
@@ -582,10 +724,20 @@ namespace PrescriptionManagementSystem
             customerSearchForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Handles the Click event of the button1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         public void button1_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(sender.ToString());
             //this.UpdateCustomerId("Felas");
+        }
+
+        private void panelContent_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

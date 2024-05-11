@@ -1,4 +1,19 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿// ***********************************************************************
+// Assembly         : PrescriptionManagementSystem
+// Author           : ogaga.ivhurie
+// Created          : 03-15-2024
+//
+// Last Modified By : ogaga.ivhurie
+// Last Modified On : 05-11-2024
+// ***********************************************************************
+// <copyright file="CreateUserForm.cs" company="PrescriptionManagementSystem">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Domain;
+using Domain.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using PrescriptionManagementSystem.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -14,13 +29,40 @@ using System.Windows.Forms;
 
 namespace PrescriptionManagementSystem
 {
+    /// <summary>
+    /// Class CreateUserForm.
+    /// Implements the <see cref="Form" />
+    /// </summary>
+    /// <seealso cref="Form" />
     public partial class CreateUserForm : Form
     {
+        /// <summary>
+        /// The stores
+        /// </summary>
+        List<Store> stores = new List<Store>();
+        /// <summary>
+        /// The SQL connection
+        /// </summary>
         SqlConnection sqlConn;
+        /// <summary>
+        /// The SQL command
+        /// </summary>
         SqlCommand sqlCmd;
+        /// <summary>
+        /// The RDR
+        /// </summary>
         SqlDataReader rdr;
+        /// <summary>
+        /// The edit record
+        /// </summary>
         bool editRecord = false;
+        /// <summary>
+        /// The customer identifier
+        /// </summary>
         int customerId = 0;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateUserForm"/> class.
+        /// </summary>
         public CreateUserForm()
         {
             InitializeComponent();
@@ -32,6 +74,9 @@ namespace PrescriptionManagementSystem
             GetEmployees();
         }
 
+        /// <summary>
+        /// Gets the employees.
+        /// </summary>
         private void GetEmployees()
         {
 
@@ -74,8 +119,55 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the ImgSave control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ImgSave_Click(object sender, EventArgs e)
         {
+            /*if (IsFormValid())
+            //{
+            //    /*
+            //    Location location = (Location)cmbBoxStores.SelectedItem;
+            //    User usermodel = new User();
+            //    usermodel.FirstName = txtFirstName.Text;
+            //    usermodel.LastName = txtLastName.Text;
+            //    usermodel.Email = txtEmail.Text;
+            //    usermodel.NormalizedEmail = txtEmail.Text.ToUpper();
+            //    usermodel.MidName = txtMidName.Text;
+            //    usermodel.StreetName = txtStreet.Text;
+            //    usermodel.City = txtCity.Text;
+            //    usermodel.Country = txtCountry.Text;
+            //    usermodel.Phone = txtPhone.Text;
+            //    usermodel.Gender = rdBtnMale.Checked ? "Male" : "Female";
+            //    usermodel.HouseNo = txtHouseNo.Text;
+            //    usermodel.County = txtCounty.Text;
+            //    usermodel.PostCode = txtPostCode.Text;
+            //    usermodel.BirthDate = Convert.ToDateTime(dtpDateOfBirth.Text);
+            //    usermodel.DateEmployed = Convert.ToDateTime(dtpEmpDate.Text);
+            //    usermodel.DateDisengaged = Convert.ToDateTime(dtpTermDate.Text);
+            //    usermodel.StoreId = location.Id;
+            //    usermodel.IsAdmin = rdBtnIsAdminTrue.Checked ? true : false;
+            //    var (saltKey, hashedPwd) = HashPassword(new byte[] { }, txtPassword.Text);
+            //    usermodel.PasswordHash = hashedPwd;
+            //    usermodel.SecurityStamp = Convert.ToBase64String(saltKey);
+
+            //    GlobalConfig.Connection.CreateUser(usermodel);
+            //    GetEmployees();
+
+            //    ClearFields();
+            //    
+            //}
+            //else
+            */
+            
+            if (!IsFormValid())
+            {
+                MessageBox.Show("Enter all details", "PharmaZeal");
+                return;
+            }
+            
             Store store = (Store)cmbBoxStores.SelectedItem;
             string firstName = txtFirstName.Text;
             string otherName = txtMidName.Text;
@@ -104,7 +196,12 @@ namespace PrescriptionManagementSystem
                 var QueryString = "";
                 if (editRecord)
                 {
-                    MessageBox.Show("Editing Record", "PharmaZeal");
+                    if (MessageBox.Show("Proceed with modifying record", "PharmaZeal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        MessageBox.Show("Operation canceled", "PharmaZeal");
+                        return;
+                    }
+                    //MessageBox.Show("Editing Record", "PharmaZeal");
                     QueryString = "UPDATE UserAccount " +
                                 " SET FirstName = @FirstName, LastName=@LastName, MiddleName=@MiddleName, HouseNo=@HouseNo," +
                                 " StreetName=@StreetName, PostCode=@PostCode, City=@City, County=@County, Country=@Country," +
@@ -114,7 +211,12 @@ namespace PrescriptionManagementSystem
                 }
                 else
                 {
-                    MessageBox.Show("Saving Record", "PharmaZeal");
+                    if (MessageBox.Show("Proceed with creating record", "PharmaZeal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        MessageBox.Show("Operation canceled", "PharmaZeal");
+                        return;
+                    }
+                    //MessageBox.Show("Saving Record", "PharmaZeal");
                     QueryString = "INSERT INTO UserAccount " +
                                 "(FirstName, LastName, MiddleName, HouseNo, StreetName, PostCode, City, County, Country,BirthDate," +
                                 " StatusId, DateEmployed, DateDisengaged, PasswordHash, Email, NormalizedEmail, IsAdmin, Gender, Phone, " +
@@ -178,7 +280,27 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Determines whether [is form valid].
+        /// </summary>
+        /// <returns><c>true</c> if [is form valid]; otherwise, <c>false</c>.</returns>
+        private bool IsFormValid()
+        {
+            //TODO: Add form validation
+            if (txtFirstName.Text.Length==0 || txtLastName.Text.Length==0 || 
+                txtEmail.Text.Length==0 || txtPassword.Text.Length==0 || txtPhone.Text.Length==0
+                 || txtPassword.Text.Length ==0)
+            {
+                return false;
+            }
+            return true;
+        }
 
+        /// <summary>
+        /// Handles the Load event of the CreateUserForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CreateUserForm_Load(object sender, EventArgs e)
         {
             if (this.editRecord == false)
@@ -187,6 +309,9 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Hides the terminate details.
+        /// </summary>
         private void HideTerminateDetails()
         {
             chkTerminateUser.Visible = false;
@@ -196,6 +321,9 @@ namespace PrescriptionManagementSystem
             lblTerminateDate.Visible = false;
         }
 
+        /// <summary>
+        /// Shows the terminate details.
+        /// </summary>
         private void ShowTerminateDetails()
         {
             lblTerminateDate.Visible = true;
@@ -204,6 +332,12 @@ namespace PrescriptionManagementSystem
             chkTerminateUser.Text = "Terminate User?";
         }
 
+        /// <summary>
+        /// Hashes the password.
+        /// </summary>
+        /// <param name="salt">The salt.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>System.ValueTuple&lt;System.Byte[], System.String&gt;.</returns>
         private static (byte[], string) HashPassword(byte[] salt, string password)
         {
             // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
@@ -227,11 +361,21 @@ namespace PrescriptionManagementSystem
             return (salt, hashed);
         }
 
+        /// <summary>
+        /// Handles the Click event of the ImgClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ImgClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnReset control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             if (editRecord == true)
@@ -243,6 +387,9 @@ namespace PrescriptionManagementSystem
             ClearFields();
         }
 
+        /// <summary>
+        /// Clears the fields.
+        /// </summary>
         public void ClearFields()
         {
             txtFirstName.Text = "";
@@ -266,6 +413,11 @@ namespace PrescriptionManagementSystem
             rdBtnIsAdminFalse.Checked = false;
         }
 
+        /// <summary>
+        /// Handles the CellDoubleClick event of the dataGridEmployee control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridEmployee_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -323,6 +475,11 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the CellContentClick event of the dataGridEmployee control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridEmployee_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var rowIndex = e.RowIndex;
@@ -333,45 +490,62 @@ namespace PrescriptionManagementSystem
                 if (MessageBox.Show($"Confirm delete of this record.", "PharmaZeal", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     //MessageBox.Show("Delete Successful", "PharmaZeal");
-                    var QueryString = "";
-                    QueryString = "UPDATE FROM UserAccount SET IsDeleted = @isDeleted " +
-                                " WHERE Id=@Id";
-
-
-                    if (sqlConn.State == ConnectionState.Open)
-                        sqlConn.Close();
-
-                    sqlConn.Open();
-                    using (var cmd = new SqlCommand(QueryString, sqlConn))
+                    try
                     {
+                        var QueryString = "";
+                        QueryString = "UPDATE FROM UserAccount SET IsDeleted = @isDeleted " +
+                                    " WHERE Id=@Id";
 
-                        cmd.Parameters.AddWithValue("@Id", customerId);
-                        cmd.Parameters.AddWithValue("@isDeleted", true);
 
+                        if (sqlConn.State == ConnectionState.Open)
+                            sqlConn.Close();
 
-
-                        int successInsert = cmd.ExecuteNonQuery();
-                        if (successInsert > 0)
+                        sqlConn.Open();
+                        using (var cmd = new SqlCommand(QueryString, sqlConn))
                         {
-                            MessageBox.Show("Delete Successful", "PharmaZeal");
+
+                            cmd.Parameters.AddWithValue("@Id", customerId);
+                            cmd.Parameters.AddWithValue("@isDeleted", true);
 
 
-                            GetEmployees();
 
-                            //ClearFields();
-                        }
-                        else
-                            MessageBox.Show("Delete Not Successful", "PharmaZeal");
-                    };
+                            int successInsert = cmd.ExecuteNonQuery();
+                            if (successInsert > 0)
+                            {
+                                MessageBox.Show("Delete Successful", "PharmaZeal", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                                GetEmployees();
+
+                                //ClearFields();
+                            }
+                            else
+                                MessageBox.Show("Delete Not Successful", "PharmaZeal", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "PharmaZeal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Paint event of the panel2 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="PaintEventArgs"/> instance containing the event data.</param>
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 

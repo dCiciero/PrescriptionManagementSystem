@@ -37,10 +37,9 @@
             label1 = new Label();
             txtOtherName = new TextBox();
             label2 = new Label();
-            label3 = new Label();
+            lblHouseNo = new Label();
             label4 = new Label();
             dtpDateOfBirth = new DateTimePicker();
-            ImgClose = new PictureBox();
             ImgSave = new PictureBox();
             label5 = new Label();
             txtPhone = new TextBox();
@@ -77,7 +76,8 @@
             btnClose = new Button();
             panel3 = new Panel();
             lbltitle = new Label();
-            ((System.ComponentModel.ISupportInitialize)ImgClose).BeginInit();
+            lblEmail = new Label();
+            txtEmail = new TextBox();
             ((System.ComponentModel.ISupportInitialize)ImgSave).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridCustomer).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnReset).BeginInit();
@@ -138,15 +138,15 @@
             label2.TabIndex = 4;
             label2.Text = "Surname";
             // 
-            // label3
+            // lblHouseNo
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(960, 111);
-            label3.Name = "label3";
-            label3.Size = new Size(92, 25);
-            label3.TabIndex = 6;
-            label3.Text = "House No";
+            lblHouseNo.AutoSize = true;
+            lblHouseNo.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblHouseNo.Location = new Point(960, 111);
+            lblHouseNo.Name = "lblHouseNo";
+            lblHouseNo.Size = new Size(92, 25);
+            lblHouseNo.TabIndex = 6;
+            lblHouseNo.Text = "House No";
             // 
             // label4
             // 
@@ -167,21 +167,10 @@
             dtpDateOfBirth.Size = new Size(420, 34);
             dtpDateOfBirth.TabIndex = 10;
             // 
-            // ImgClose
-            // 
-            ImgClose.Image = (Image)resources.GetObject("ImgClose.Image");
-            ImgClose.Location = new Point(1745, 328);
-            ImgClose.Name = "ImgClose";
-            ImgClose.Size = new Size(40, 45);
-            ImgClose.SizeMode = PictureBoxSizeMode.Zoom;
-            ImgClose.TabIndex = 13;
-            ImgClose.TabStop = false;
-            ImgClose.Click += ImgClose_Click;
-            // 
             // ImgSave
             // 
             ImgSave.Image = (Image)resources.GetObject("ImgSave.Image");
-            ImgSave.Location = new Point(1653, 328);
+            ImgSave.Location = new Point(1709, 328);
             ImgSave.Name = "ImgSave";
             ImgSave.Size = new Size(40, 45);
             ImgSave.SizeMode = PictureBoxSizeMode.Zoom;
@@ -397,7 +386,7 @@
             txtHouseNo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtHouseNo.Location = new Point(946, 128);
             txtHouseNo.Name = "txtHouseNo";
-            txtHouseNo.Size = new Size(850, 39);
+            txtHouseNo.Size = new Size(420, 39);
             txtHouseNo.TabIndex = 21;
             // 
             // label6
@@ -491,7 +480,7 @@
             // btnReset
             // 
             btnReset.Image = (Image)resources.GetObject("btnReset.Image");
-            btnReset.Location = new Point(1699, 328);
+            btnReset.Location = new Point(1755, 328);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(40, 45);
             btnReset.SizeMode = PictureBoxSizeMode.Zoom;
@@ -555,12 +544,32 @@
             lbltitle.Text = "Prescription Management System - Create Customer";
             lbltitle.TextAlign = ContentAlignment.TopCenter;
             // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblEmail.Location = new Point(1389, 111);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(54, 25);
+            lblEmail.TabIndex = 35;
+            lblEmail.Text = "Email";
+            // 
+            // txtEmail
+            // 
+            txtEmail.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtEmail.Location = new Point(1375, 128);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(420, 39);
+            txtEmail.TabIndex = 36;
+            // 
             // frmCustomers
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1846, 785);
+            Controls.Add(lblEmail);
+            Controls.Add(txtEmail);
             Controls.Add(panel3);
             Controls.Add(rdBtnNo);
             Controls.Add(label10);
@@ -579,9 +588,8 @@
             Controls.Add(label5);
             Controls.Add(txtPhone);
             Controls.Add(ImgSave);
-            Controls.Add(ImgClose);
             Controls.Add(label4);
-            Controls.Add(label3);
+            Controls.Add(lblHouseNo);
             Controls.Add(label2);
             Controls.Add(txtSurname);
             Controls.Add(label1);
@@ -598,7 +606,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmCustomers";
             Load += frmCustomers_Load;
-            ((System.ComponentModel.ISupportInitialize)ImgClose).EndInit();
             ((System.ComponentModel.ISupportInitialize)ImgSave).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridCustomer).EndInit();
             ((System.ComponentModel.ISupportInitialize)btnReset).EndInit();
@@ -616,10 +623,9 @@
         private Label label1;
         private TextBox txtOtherName;
         private Label label2;
-        private Label label3;
+        private Label lblHouseNo;
         private Label label4;
         private DateTimePicker dtpDateOfBirth;
-        private PictureBox ImgClose;
         private PictureBox ImgSave;
         private Label label5;
         private TextBox txtPhone;
@@ -667,5 +673,7 @@
         private Button btnClose;
         private Panel panel3;
         private Label lbltitle;
+        private Label lblEmail;
+        private TextBox txtEmail;
     }
 }

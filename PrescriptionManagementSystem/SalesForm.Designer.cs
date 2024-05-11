@@ -90,6 +90,7 @@
             panelContent.Name = "panelContent";
             panelContent.Size = new Size(1700, 707);
             panelContent.TabIndex = 0;
+            panelContent.Paint += panelContent_Paint;
             // 
             // lblCustomerId
             // 

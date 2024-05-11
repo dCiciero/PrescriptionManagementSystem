@@ -119,11 +119,11 @@ namespace PrescriptionManagementSystem.Data.Models
                     //Group by days
                     else if (numberOfDays <= 30)
                     {
-                        GrossRevenueList = (from orderList in resultTable
-                                            group orderList by orderList.Key.ToString("dd, MMM")
+                        GrossRevenueList = (from saleList in resultTable
+                                            group saleList by saleList.Key.ToString("dd MMM")
                                             into order
                                             select new RevenueByDate
-                                            {
+                                            { 
                                                 Date = order.Key,
                                                 TotalAmount = order.Sum(amount => amount.Value)
                                             }).ToList();
@@ -140,14 +140,14 @@ namespace PrescriptionManagementSystem.Data.Models
                     //Group by weeks
                     else if (numberOfDays <= 92)
                     {
-                        GrossRevenueList = (from orderlist in resultTable
-                                            group orderlist by CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                                                orderlist.Key, CalendarWeekRule.FirstDay, DayOfWeek.Monday)
-                                            into order
+                        GrossRevenueList = (from saleList in resultTable
+                                            group saleList by CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                                                saleList.Key, CalendarWeekRule.FirstDay, DayOfWeek.Monday)
+                                            into sale
                                             select new RevenueByDate
                                             {
-                                                Date = "Week " + order.Key.ToString(),
-                                                TotalAmount = order.Sum(amount => amount.Value)
+                                                Date = "Week " + sale.Key.ToString(),
+                                                TotalAmount = sale.Sum(amount => amount.Value)
                                             }).ToList();
                     }
 
@@ -155,26 +155,26 @@ namespace PrescriptionManagementSystem.Data.Models
                     else if (numberOfDays <= (365 * 2))
                     {
                         bool isYear = numberOfDays <= 365 ? true : false;
-                        GrossRevenueList = (from orderlist in resultTable
-                                            group orderlist by orderlist.Key.ToString("MMM yyyy")
-                                            into order
+                        GrossRevenueList = (from saleList in resultTable
+                                            group saleList by saleList.Key.ToString("MMM yyyy")
+                                            into sale
                                             select new RevenueByDate
                                             {
-                                                Date = isYear ? order.Key.Substring(0, order.Key.IndexOf(" ")) : order.Key,
-                                                TotalAmount = order.Sum(amount => amount.Value)
+                                                Date = isYear ? sale.Key.Substring(0, sale.Key.IndexOf(" ")) : sale.Key,
+                                                TotalAmount = sale.Sum(amount => amount.Value)
                                             }).ToList();
                     }
 
                     //Group by years
                     else
                     {
-                        GrossRevenueList = (from orderlist in resultTable
-                                            group orderlist by orderlist.Key.ToString("yyyy")
-                                            into order
+                        GrossRevenueList = (from saleList in resultTable
+                                            group saleList by saleList.Key.ToString("yyyy")
+                                            into sale
                                             select new RevenueByDate
                                             {
-                                                Date = order.Key, 
-                                                TotalAmount = order.Sum(amount => amount.Value)
+                                                Date = sale.Key, 
+                                                TotalAmount = sale.Sum(amount => amount.Value)
                                             }).ToList();
                     }
                 }

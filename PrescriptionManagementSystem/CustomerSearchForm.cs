@@ -1,4 +1,17 @@
-﻿using PrescriptionManagementSystem.Data.Models;
+﻿// ***********************************************************************
+// Assembly         : PrescriptionManagementSystem
+// Author           : ogaga.ivhurie
+// Created          : 02-28-2024
+//
+// Last Modified By : ogaga.ivhurie
+// Last Modified On : 05-11-2024
+// ***********************************************************************
+// <copyright file="CustomerSearchForm.cs" company="PrescriptionManagementSystem">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using PrescriptionManagementSystem.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,13 +25,36 @@ using System.Windows.Forms;
 
 namespace PrescriptionManagementSystem
 {
+    /// <summary>
+    /// Class CustomerSearchForm.
+    /// Implements the <see cref="Form" />
+    /// </summary>
+    /// <seealso cref="Form" />
     public partial class CustomerSearchForm : Form
     {
+        /// <summary>
+        /// The SQL connection
+        /// </summary>
         SqlConnection sqlConn;
+        /// <summary>
+        /// The SQL command
+        /// </summary>
         SqlCommand sqlCmd;
+        /// <summary>
+        /// The RDR
+        /// </summary>
         SqlDataReader rdr;
+        /// <summary>
+        /// The customer identifier
+        /// </summary>
         public int customerId;
+        /// <summary>
+        /// The sales form
+        /// </summary>
         private SalesForm salesForm = null;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerSearchForm"/> class.
+        /// </summary>
         public CustomerSearchForm()
         {
             InitializeComponent();
@@ -28,6 +64,10 @@ namespace PrescriptionManagementSystem
             GetCustomers();
             btnCustSale.Visible = false;
         }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerSearchForm"/> class.
+        /// </summary>
+        /// <param name="source">The source.</param>
         public CustomerSearchForm(string source)
         {
             AppConfig.customerFormSource = source;
@@ -38,26 +78,41 @@ namespace PrescriptionManagementSystem
             //ConnectDB();
             GetCustomers();
         }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerSearchForm"/> class.
+        /// </summary>
+        /// <param name="callingForm">The calling form.</param>
         public CustomerSearchForm(Form callingForm)
         {
             salesForm = (SalesForm)callingForm;
-            InitializeComponent ();
+            InitializeComponent();
             btnCustSale.Visible = true;
             AppConfig.getDBConnection();
             sqlConn = AppConfig.sqlConn;
             GetCustomers();
         }
 
+        /// <summary>
+        /// Handles the Click event of the ImgClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ImgClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        /// <summary>
+        /// Connects the database.
+        /// </summary>
         private void ConnectDB()
         {
             string connectionStr = @"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=PharmaZeal; Integrated Security=True; ";
             sqlConn = new SqlConnection(connectionStr);
         }
 
+        /// <summary>
+        /// Gets the customers.
+        /// </summary>
         private void GetCustomers()
         {
 
@@ -94,6 +149,10 @@ namespace PrescriptionManagementSystem
         }
 
 
+        /// <summary>
+        /// Gets the customer prescription history.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
         private void GetCustomerPrescriptionHistory(int custId)
         {
 
@@ -139,6 +198,11 @@ namespace PrescriptionManagementSystem
                 throw;
             }
         }
+        /// <summary>
+        /// Handles the TextChanged event of the txtSearchCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtSearchCustomer_TextChanged(object sender, EventArgs e)
         {
             //var bd = (BindingSource)dataGridCustomer.DataSource;
@@ -151,6 +215,11 @@ namespace PrescriptionManagementSystem
             dgvCustomer.DataSource = bindingSource.DataSource;
         }
 
+        /// <summary>
+        /// Handles the DataBindingComplete event of the dataGridCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewBindingCompleteEventArgs"/> instance containing the event data.</param>
         private void dataGridCustomer_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             var rowCount = dgvCustomer.Rows.Count;
@@ -176,26 +245,30 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the CellContentDoubleClick event of the dataGridCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridCustomer_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var rowIndex = dgvCustomer.Rows[e.RowIndex].Index;
             customerId = (int)dgvCustomer.Rows[rowIndex].Cells["Id"].Value;
             AppConfig.customerName = $"{dgvCustomer.Rows[rowIndex].Cells["FirstName"].Value.ToString()} {dgvCustomer.Rows[rowIndex].Cells["LastName"].Value.ToString()} ";
-            //MessageBox.Show(customerId.ToString(), "PharmaZeal");
-            //var customerName = dataGridCustomer.Rows[rowIndex].Cells["FirstName"].Value.ToString() + " " + dataGridCustomer.Rows[rowIndex].Cells["OtherName"].Value.ToString() + " " + dataGridCustomer.Rows[rowIndex].Cells["LastName"].Value.ToString();
-            //CustomerHistory customerHistory = new CustomerHistory(customerName);
-            //this.Hide();
-            //customerHistory.ShowDialog();
+           
             panelPrescriptionHistory.Visible = true;
             //panelHistory.Visible = true;
             this.Height = 926;
             dgvCustomer.Enabled = false;
             dgvCustomer.ReadOnly = true;
             GetCustomerPrescriptionHistory(customerId);
-            //dataGridCustomer.ForeColor = Color.Black;
-            //dataGridCustomer.ClearSelection();
         }
 
+        /// <summary>
+        /// Handles the Load event of the CustomerSearchForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CustomerSearchForm_Load(object sender, EventArgs e)
         {
             panelPrescriptionHistory.Visible = false;
@@ -204,6 +277,11 @@ namespace PrescriptionManagementSystem
             this.Height = 626;
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnHideHistory control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnHideHistory_Click(object sender, EventArgs e)
         {
             panelPrescriptionHistory.Visible = false;
@@ -213,17 +291,37 @@ namespace PrescriptionManagementSystem
             this.Height = 626;
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnCustSale control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnCustSale_Click(object sender, EventArgs e)
         {
             AppConfig.customerId = customerId;
-            this.salesForm.CustomerId = $"{AppConfig.customerId.ToString()} {AppConfig.customerName}" ;
-            
+            this.salesForm.CustomerId = $"{AppConfig.customerId.ToString()} {AppConfig.customerName}";
+
             this.Close();
+        }
+
+        /// <summary>
+        /// Handles the Paint event of the panel1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="PaintEventArgs"/> instance containing the event data.</param>
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

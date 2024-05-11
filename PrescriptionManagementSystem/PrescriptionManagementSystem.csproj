@@ -6,17 +6,54 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>PrescriptionManagementSystem.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Admin.cs" />
+    <Compile Remove="Admin.Designer.cs" />
+    <Compile Remove="CustomerHistory.cs" />
+    <Compile Remove="CustomerHistory.Designer.cs" />
+    <Compile Remove="DashboardForm_Dark.cs" />
+    <Compile Remove="DashboardForm_Dark.Designer.cs" />
+    <Compile Remove="EmployeeMgmtForm.cs" />
+    <Compile Remove="EmployeeMgmtForm.Designer.cs" />
+    <Compile Remove="HomeForm.cs" />
+    <Compile Remove="HomeForm.Designer.cs" />
+    <Compile Remove="PMS.cs" />
+    <Compile Remove="PMS.Designer.cs" />
+    <Compile Remove="SalesChart.cs" />
+    <Compile Remove="SalesChart.Designer.cs" />
+    <Compile Remove="WebScraper.cs" />
+    <Compile Remove="WebScraper.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Admin.resx" />
+    <EmbeddedResource Remove="CustomerHistory.resx" />
+    <EmbeddedResource Remove="DashboardForm_Dark.resx" />
+    <EmbeddedResource Remove="EmployeeMgmtForm.resx" />
+    <EmbeddedResource Remove="HomeForm.resx" />
+    <EmbeddedResource Remove="PMS.resx" />
+    <EmbeddedResource Remove="SalesChart.resx" />
+    <EmbeddedResource Remove="WebScraper.resx" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.0.9" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="WinForms.DataVisualization" Version="1.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +62,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="AppSetting.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppSetting.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +74,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AppSetting.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>AppSetting.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

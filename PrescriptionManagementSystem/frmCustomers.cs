@@ -1,4 +1,19 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : PrescriptionManagementSystem
+// Author           : ogaga.ivhurie
+// Created          : 02-22-2024
+//
+// Last Modified By : ogaga.ivhurie
+// Last Modified On : 04-20-2024
+// ***********************************************************************
+// <copyright file="frmCustomers.cs" company="PrescriptionManagementSystem">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Domain;
+using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,44 +27,80 @@ using System.Windows.Forms;
 
 namespace PrescriptionManagementSystem
 {
+    /// <summary>
+    /// Class frmCustomers.
+    /// Implements the <see cref="Form" />
+    /// </summary>
+    /// <seealso cref="Form" />
     public partial class frmCustomers : Form
     {
+        /// <summary>
+        /// The SQL connection
+        /// </summary>
         SqlConnection sqlConn;
+        /// <summary>
+        /// The SQL command
+        /// </summary>
         SqlCommand sqlCmd;
+        /// <summary>
+        /// The RDR
+        /// </summary>
         SqlDataReader rdr;
+        /// <summary>
+        /// The edit record
+        /// </summary>
         bool editRecord = false;
+        /// <summary>
+        /// The customer identifier
+        /// </summary>
         int customerId = 0;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="frmCustomers"/> class.
+        /// </summary>
         public frmCustomers()
         {
             InitializeComponent();
             AppConfig.getDBConnection();
             sqlConn = AppConfig.sqlConn;
-            ImgClose.Visible = false;
+            
             //ConnectDB();
             GetCustomers();
         }
 
+        /// <summary>
+        /// Connects the database.
+        /// </summary>
         private void ConnectDB()
         {
             string connectionStr = @"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=PharmaZeal; Integrated Security=True; ";
             sqlConn = new SqlConnection(connectionStr);
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnSave control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Confirm Save");
         }
 
-        private void ImgClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
+
+        /// <summary>
+        /// Handles the Load event of the frmCustomers control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void frmCustomers_Load(object sender, EventArgs e)
         {
             //GetCustomers();
         }
 
+        /// <summary>
+        /// Gets the customers.
+        /// </summary>
         private void GetCustomers()
         {
 
@@ -97,6 +148,11 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the ImgSave control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ImgSave_Click(object sender, EventArgs e)
         {
             string firstName = txtFirstName.Text;
@@ -108,10 +164,40 @@ namespace PrescriptionManagementSystem
             string city = txtCIty.Text;
             string county = txtCounty.Text;
             string phone = txtPhone.Text;
+            string email = txtEmail.Text;
             DateTime dob = Convert.ToDateTime(dtpDateOfBirth.Text);
             string country = "United Kingdom";
             bool vulnerable = rdBtnYes.Checked ? true : false;
 
+            if (!IsFormValid())
+            {
+                MessageBox.Show("Please check form entry and retry", "PharmaZeal");
+                return;
+            }
+            // TODO - Implement SOC by calling method in Domain Layer
+            //else
+            //{
+            //Customer customer = new Customer();
+            //    customer.Id = 1;
+            //    customer.FirstName = firstName;
+            //    customer.LastName = surname;
+            //    customer.OtherName = otherName;
+            //    customer.StreetName = streetName;
+            //    customer.PostCode = postCode;
+            //    customer.City = city;
+            //    customer.Country = country;
+            //    customer.County = county;
+            //    customer.Email = email;
+            //    customer.IsVulnerable = vulnerable;
+            //    customer.DateOfBirth = dob;
+            //    customer.Mobile = phone;
+            //    customer.HouseNo = houseNo;
+
+            //GlobalConfig.Connection.CreateCustomer(customer);
+
+            //}
+
+            //return;
 
             try
             {
@@ -177,6 +263,37 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Determines whether [is form valid].
+        /// </summary>
+        /// <returns><c>true</c> if [is form valid]; otherwise, <c>false</c>.</returns>
+        private bool IsFormValid()
+        {
+            bool output = true;
+            string firstName = txtFirstName.Text;
+            string otherName = txtOtherName.Text;
+            string surname = txtSurname.Text;
+            string houseNo = txtHouseNo.Text;
+            string streetName = txtStreet.Text;
+            string postCode = txtPostCode.Text;
+            string city = txtCIty.Text;
+            string county = txtCounty.Text;
+            string phone = txtPhone.Text;
+            string email = txtEmail.Text;
+            DateTime dob = Convert.ToDateTime(dtpDateOfBirth.Text);
+            string country = "United Kingdom";
+            bool vulnerable = rdBtnYes.Checked ? true : false;
+
+            if (firstName.Length == 0 || surname.Length == 0 || phone.Length == 0 || email.Length == 0 )
+            {
+                output = false;
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Clears the fields.
+        /// </summary>
         public void ClearFields()
         {
             txtFirstName.Text = "";
@@ -194,6 +311,11 @@ namespace PrescriptionManagementSystem
         }
 
 
+        /// <summary>
+        /// Handles the CellContentDoubleClick event of the dataGridCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridCustomer_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             editRecord = true;
@@ -237,6 +359,11 @@ namespace PrescriptionManagementSystem
 
         }
 
+        /// <summary>
+        /// Handles the DataBindingComplete event of the dataGridCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewBindingCompleteEventArgs"/> instance containing the event data.</param>
         private void dataGridCustomer_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             //var rowCount = dataGridCustomer.Rows.Count;
@@ -252,11 +379,21 @@ namespace PrescriptionManagementSystem
             //}
         }
 
+        /// <summary>
+        /// Handles the RowPostPaint event of the dataGridCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewRowPostPaintEventArgs"/> instance containing the event data.</param>
         private void dataGridCustomer_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             //this.dataGridCustomer.Rows[e.RowIndex].Cells["sn"].Value = (e.RowIndex + 1).ToString();
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnReset control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             if (editRecord == true)
@@ -264,6 +401,11 @@ namespace PrescriptionManagementSystem
             ClearFields();
         }
 
+        /// <summary>
+        /// Handles the CellContentClick event of the dataGridCustomer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
         private void dataGridCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var rowIndex = e.RowIndex;
@@ -308,6 +450,11 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -36,6 +36,10 @@
             btnCustSale = new Button();
             btnHideHistory = new Button();
             dgvPrescriptionHistory = new DataGridView();
+            ProductName = new DataGridViewTextBoxColumn();
+            Condition = new DataGridViewTextBoxColumn();
+            DateSold = new DataGridViewTextBoxColumn();
+            SoldBy = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             lbltitle = new Label();
             btnClose = new Button();
@@ -58,10 +62,6 @@
             Id = new DataGridViewTextBoxColumn();
             lblFirstname = new Label();
             txtSearchCustomer = new TextBox();
-            ProductName = new DataGridViewTextBoxColumn();
-            Condition = new DataGridViewTextBoxColumn();
-            DateSold = new DataGridViewTextBoxColumn();
-            SoldBy = new DataGridViewTextBoxColumn();
             panelPrescriptionHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPrescriptionHistory).BeginInit();
             panel3.SuspendLayout();
@@ -148,6 +148,38 @@
             dgvPrescriptionHistory.Size = new Size(1367, 301);
             dgvPrescriptionHistory.TabIndex = 27;
             // 
+            // ProductName
+            // 
+            ProductName.DataPropertyName = "ProductName";
+            ProductName.HeaderText = "Drug Name";
+            ProductName.MinimumWidth = 8;
+            ProductName.Name = "ProductName";
+            ProductName.ReadOnly = true;
+            // 
+            // Condition
+            // 
+            Condition.DataPropertyName = "Condition";
+            Condition.HeaderText = "Condition";
+            Condition.MinimumWidth = 8;
+            Condition.Name = "Condition";
+            Condition.ReadOnly = true;
+            // 
+            // DateSold
+            // 
+            DateSold.DataPropertyName = "DateSold";
+            DateSold.HeaderText = "Date Administered";
+            DateSold.MinimumWidth = 20;
+            DateSold.Name = "DateSold";
+            DateSold.ReadOnly = true;
+            // 
+            // SoldBy
+            // 
+            SoldBy.DataPropertyName = "SoldBy";
+            SoldBy.HeaderText = "Sold By";
+            SoldBy.MinimumWidth = 8;
+            SoldBy.Name = "SoldBy";
+            SoldBy.ReadOnly = true;
+            // 
             // panel3
             // 
             panel3.BackColor = Color.Gainsboro;
@@ -196,6 +228,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1395, 494);
             panel1.TabIndex = 28;
+            panel1.Paint += panel1_Paint;
             // 
             // panel2
             // 
@@ -408,38 +441,6 @@
             txtSearchCustomer.Size = new Size(1359, 39);
             txtSearchCustomer.TabIndex = 27;
             txtSearchCustomer.TextChanged += txtSearchCustomer_TextChanged;
-            // 
-            // ProductName
-            // 
-            ProductName.DataPropertyName = "ProductName";
-            ProductName.HeaderText = "Drug Name";
-            ProductName.MinimumWidth = 8;
-            ProductName.Name = "ProductName";
-            ProductName.ReadOnly = true;
-            // 
-            // Condition
-            // 
-            Condition.DataPropertyName = "Condition";
-            Condition.HeaderText = "Condition";
-            Condition.MinimumWidth = 8;
-            Condition.Name = "Condition";
-            Condition.ReadOnly = true;
-            // 
-            // DateSold
-            // 
-            DateSold.DataPropertyName = "DateSold";
-            DateSold.HeaderText = "Date Administered";
-            DateSold.MinimumWidth = 20;
-            DateSold.Name = "DateSold";
-            DateSold.ReadOnly = true;
-            // 
-            // SoldBy
-            // 
-            SoldBy.DataPropertyName = "SoldBy";
-            SoldBy.HeaderText = "Sold By";
-            SoldBy.MinimumWidth = 8;
-            SoldBy.Name = "SoldBy";
-            SoldBy.ReadOnly = true;
             // 
             // CustomerSearchForm
             // 

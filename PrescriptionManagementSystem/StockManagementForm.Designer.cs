@@ -38,12 +38,26 @@
             btnClose = new Button();
             panelContent = new Panel();
             panelBulkEntry = new Panel();
-            dataGridDrugsBulkEntry = new DataGridView();
+            dgvDrugsBulkEntry = new DataGridView();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            Condition = new DataGridViewTextBoxColumn();
+            UnitCost = new DataGridViewTextBoxColumn();
+            MinStockLevel = new DataGridViewTextBoxColumn();
+            ReorderQty = new DataGridViewTextBoxColumn();
+            IdCheck = new DataGridViewCheckBoxColumn();
+            Stock = new DataGridViewCheckBoxColumn();
+            Tunstall = new DataGridViewCheckBoxColumn();
+            Hanley = new DataGridViewCheckBoxColumn();
+            Fenton = new DataGridViewCheckBoxColumn();
+            Longton = new DataGridViewCheckBoxColumn();
+            StockType = new DataGridViewCheckBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewImageColumn1 = new DataGridViewImageColumn();
             panelSingleEntry = new Panel();
+            label4 = new Label();
+            label8 = new Label();
+            cmbStockType = new ComboBox();
             label7 = new Label();
             txtCondition = new TextBox();
             chkBoxCheckId = new CheckBox();
@@ -58,7 +72,6 @@
             ImgSave = new PictureBox();
             label5 = new Label();
             txtMinStockLevel = new TextBox();
-            label4 = new Label();
             txtReorderQty = new TextBox();
             label3 = new Label();
             txtUnitCost = new TextBox();
@@ -67,28 +80,30 @@
             label1 = new Label();
             txtQuantity = new TextBox();
             panel1 = new Panel();
-            dataGridDrugs = new DataGridView();
-            DrugName = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            ExpiryDate = new DataGridViewTextBoxColumn();
-            Delete = new DataGridViewImageColumn();
+            drvDrugs = new DataGridView();
             lblFirstname = new Label();
             txtDrugName = new TextBox();
+            panelStoreNames = new Panel();
             panelControl = new Panel();
             btnGetFile = new Button();
             panel2 = new Panel();
             panelOption = new Panel();
             rdBtnBulkEntry = new RadioButton();
             rdBtnSingleEntry = new RadioButton();
+            DrugName = new DataGridViewTextBoxColumn();
+            Quantity = new DataGridViewTextBoxColumn();
+            ExpiryDate = new DataGridViewTextBoxColumn();
+            Delete = new DataGridViewImageColumn();
+            Id = new DataGridViewTextBoxColumn();
             panelHeader.SuspendLayout();
             panelContent.SuspendLayout();
             panelBulkEntry.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridDrugsBulkEntry).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDrugsBulkEntry).BeginInit();
             panelSingleEntry.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnReset).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ImgSave).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridDrugs).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)drvDrugs).BeginInit();
             panelControl.SuspendLayout();
             panelOption.SuspendLayout();
             SuspendLayout();
@@ -144,21 +159,21 @@
             // panelBulkEntry
             // 
             panelBulkEntry.BackColor = Color.Transparent;
-            panelBulkEntry.Controls.Add(dataGridDrugsBulkEntry);
+            panelBulkEntry.Controls.Add(dgvDrugsBulkEntry);
             panelBulkEntry.Location = new Point(25, 413);
             panelBulkEntry.Name = "panelBulkEntry";
             panelBulkEntry.Size = new Size(1147, 299);
             panelBulkEntry.TabIndex = 192;
             // 
-            // dataGridDrugsBulkEntry
+            // dgvDrugsBulkEntry
             // 
-            dataGridDrugsBulkEntry.AllowUserToAddRows = false;
-            dataGridDrugsBulkEntry.AllowUserToDeleteRows = false;
-            dataGridDrugsBulkEntry.AllowUserToResizeColumns = false;
-            dataGridDrugsBulkEntry.AllowUserToResizeRows = false;
-            dataGridDrugsBulkEntry.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridDrugsBulkEntry.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
-            dataGridDrugsBulkEntry.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvDrugsBulkEntry.AllowUserToAddRows = false;
+            dgvDrugsBulkEntry.AllowUserToDeleteRows = false;
+            dgvDrugsBulkEntry.AllowUserToResizeColumns = false;
+            dgvDrugsBulkEntry.AllowUserToResizeRows = false;
+            dgvDrugsBulkEntry.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvDrugsBulkEntry.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
+            dgvDrugsBulkEntry.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.SteelBlue;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
@@ -166,9 +181,9 @@
             dataGridViewCellStyle1.SelectionBackColor = Color.SteelBlue;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridDrugsBulkEntry.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridDrugsBulkEntry.ColumnHeadersHeight = 40;
-            dataGridDrugsBulkEntry.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewImageColumn1 });
+            dgvDrugsBulkEntry.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvDrugsBulkEntry.ColumnHeadersHeight = 40;
+            dgvDrugsBulkEntry.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, Condition, UnitCost, MinStockLevel, ReorderQty, IdCheck, Stock, Tunstall, Hanley, Fenton, Longton, StockType, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewImageColumn1 });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.White;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -176,28 +191,118 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.RoyalBlue;
             dataGridViewCellStyle2.SelectionForeColor = Color.White;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridDrugsBulkEntry.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridDrugsBulkEntry.EnableHeadersVisualStyles = false;
-            dataGridDrugsBulkEntry.Location = new Point(16, 48);
-            dataGridDrugsBulkEntry.MultiSelect = false;
-            dataGridDrugsBulkEntry.Name = "dataGridDrugsBulkEntry";
-            dataGridDrugsBulkEntry.ReadOnly = true;
-            dataGridDrugsBulkEntry.RowHeadersVisible = false;
-            dataGridDrugsBulkEntry.RowHeadersWidth = 30;
-            dataGridDrugsBulkEntry.RowTemplate.DividerHeight = 2;
-            dataGridDrugsBulkEntry.RowTemplate.Height = 34;
-            dataGridDrugsBulkEntry.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridDrugsBulkEntry.Size = new Size(1212, 529);
-            dataGridDrugsBulkEntry.TabIndex = 178;
+            dgvDrugsBulkEntry.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvDrugsBulkEntry.EnableHeadersVisualStyles = false;
+            dgvDrugsBulkEntry.Location = new Point(16, 48);
+            dgvDrugsBulkEntry.MultiSelect = false;
+            dgvDrugsBulkEntry.Name = "dgvDrugsBulkEntry";
+            dgvDrugsBulkEntry.ReadOnly = true;
+            dgvDrugsBulkEntry.RowHeadersVisible = false;
+            dgvDrugsBulkEntry.RowHeadersWidth = 30;
+            dgvDrugsBulkEntry.RowTemplate.DividerHeight = 2;
+            dgvDrugsBulkEntry.RowTemplate.Height = 34;
+            dgvDrugsBulkEntry.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDrugsBulkEntry.Size = new Size(1212, 529);
+            dgvDrugsBulkEntry.TabIndex = 178;
+            dgvDrugsBulkEntry.CellContentClick += dgvDrugsBulkEntry_CellContentClick;
             // 
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.DataPropertyName = "Name";
             dataGridViewTextBoxColumn1.FillWeight = 125.757576F;
-            dataGridViewTextBoxColumn1.HeaderText = "Drug Name";
+            dataGridViewTextBoxColumn1.HeaderText = "Product Name";
             dataGridViewTextBoxColumn1.MinimumWidth = 8;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             dataGridViewTextBoxColumn1.ReadOnly = true;
+            dataGridViewTextBoxColumn1.Width = 182;
+            // 
+            // Condition
+            // 
+            Condition.HeaderText = "Contition";
+            Condition.MinimumWidth = 8;
+            Condition.Name = "Condition";
+            Condition.ReadOnly = true;
+            Condition.Width = 134;
+            // 
+            // UnitCost
+            // 
+            UnitCost.HeaderText = "UnitCost";
+            UnitCost.MinimumWidth = 8;
+            UnitCost.Name = "UnitCost";
+            UnitCost.ReadOnly = true;
+            UnitCost.Width = 127;
+            // 
+            // MinStockLevel
+            // 
+            MinStockLevel.HeaderText = "Minimum Stock Level";
+            MinStockLevel.MinimumWidth = 8;
+            MinStockLevel.Name = "MinStockLevel";
+            MinStockLevel.ReadOnly = true;
+            MinStockLevel.Width = 250;
+            // 
+            // ReorderQty
+            // 
+            ReorderQty.HeaderText = "Reorder Quantity";
+            ReorderQty.MinimumWidth = 8;
+            ReorderQty.Name = "ReorderQty";
+            ReorderQty.ReadOnly = true;
+            ReorderQty.Width = 210;
+            // 
+            // IdCheck
+            // 
+            IdCheck.HeaderText = "IdCheck";
+            IdCheck.MinimumWidth = 8;
+            IdCheck.Name = "IdCheck";
+            IdCheck.ReadOnly = true;
+            IdCheck.Width = 90;
+            // 
+            // Stock
+            // 
+            Stock.HeaderText = "Stock";
+            Stock.MinimumWidth = 8;
+            Stock.Name = "Stock";
+            Stock.ReadOnly = true;
+            Stock.Width = 68;
+            // 
+            // Tunstall
+            // 
+            Tunstall.HeaderText = "Tunstall";
+            Tunstall.MinimumWidth = 8;
+            Tunstall.Name = "Tunstall";
+            Tunstall.ReadOnly = true;
+            Tunstall.Width = 91;
+            // 
+            // Hanley
+            // 
+            Hanley.HeaderText = "Hanley";
+            Hanley.MinimumWidth = 8;
+            Hanley.Name = "Hanley";
+            Hanley.ReadOnly = true;
+            Hanley.Width = 82;
+            // 
+            // Fenton
+            // 
+            Fenton.HeaderText = "Fenton";
+            Fenton.MinimumWidth = 8;
+            Fenton.Name = "Fenton";
+            Fenton.ReadOnly = true;
+            Fenton.Width = 81;
+            // 
+            // Longton
+            // 
+            Longton.HeaderText = "Longton";
+            Longton.MinimumWidth = 8;
+            Longton.Name = "Longton";
+            Longton.ReadOnly = true;
+            Longton.Width = 94;
+            // 
+            // StockType
+            // 
+            StockType.HeaderText = "Stock Type";
+            StockType.MinimumWidth = 8;
+            StockType.Name = "StockType";
+            StockType.ReadOnly = true;
+            StockType.Width = 119;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -207,6 +312,7 @@
             dataGridViewTextBoxColumn2.MinimumWidth = 8;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             dataGridViewTextBoxColumn2.ReadOnly = true;
+            dataGridViewTextBoxColumn2.Width = 129;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -216,6 +322,7 @@
             dataGridViewTextBoxColumn3.MinimumWidth = 8;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             dataGridViewTextBoxColumn3.ReadOnly = true;
+            dataGridViewTextBoxColumn3.Width = 157;
             // 
             // dataGridViewImageColumn1
             // 
@@ -227,10 +334,14 @@
             dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             dataGridViewImageColumn1.ReadOnly = true;
             dataGridViewImageColumn1.Resizable = DataGridViewTriState.False;
+            dataGridViewImageColumn1.Width = 78;
             // 
             // panelSingleEntry
             // 
             panelSingleEntry.BackColor = Color.WhiteSmoke;
+            panelSingleEntry.Controls.Add(label4);
+            panelSingleEntry.Controls.Add(label8);
+            panelSingleEntry.Controls.Add(cmbStockType);
             panelSingleEntry.Controls.Add(label7);
             panelSingleEntry.Controls.Add(txtCondition);
             panelSingleEntry.Controls.Add(chkBoxCheckId);
@@ -240,7 +351,6 @@
             panelSingleEntry.Controls.Add(ImgSave);
             panelSingleEntry.Controls.Add(label5);
             panelSingleEntry.Controls.Add(txtMinStockLevel);
-            panelSingleEntry.Controls.Add(label4);
             panelSingleEntry.Controls.Add(txtReorderQty);
             panelSingleEntry.Controls.Add(label3);
             panelSingleEntry.Controls.Add(txtUnitCost);
@@ -249,13 +359,43 @@
             panelSingleEntry.Controls.Add(label1);
             panelSingleEntry.Controls.Add(txtQuantity);
             panelSingleEntry.Controls.Add(panel1);
-            panelSingleEntry.Controls.Add(dataGridDrugs);
+            panelSingleEntry.Controls.Add(drvDrugs);
             panelSingleEntry.Controls.Add(lblFirstname);
             panelSingleEntry.Controls.Add(txtDrugName);
+            panelSingleEntry.Controls.Add(panelStoreNames);
             panelSingleEntry.Location = new Point(0, 73);
             panelSingleEntry.Name = "panelSingleEntry";
             panelSingleEntry.Size = new Size(1220, 320);
             panelSingleEntry.TabIndex = 1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(881, 161);
+            label4.Name = "label4";
+            label4.Size = new Size(97, 25);
+            label4.TabIndex = 185;
+            label4.Text = "Stock Type";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Location = new Point(944, 85);
+            label8.Name = "label8";
+            label8.Size = new Size(147, 25);
+            label8.TabIndex = 204;
+            label8.Text = "Reorder Quantity";
+            // 
+            // cmbStockType
+            // 
+            cmbStockType.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            cmbStockType.FormattingEnabled = true;
+            cmbStockType.Location = new Point(886, 184);
+            cmbStockType.Name = "cmbStockType";
+            cmbStockType.Size = new Size(182, 38);
+            cmbStockType.TabIndex = 202;
             // 
             // label7
             // 
@@ -278,7 +418,7 @@
             // chkBoxCheckId
             // 
             chkBoxCheckId.AutoSize = true;
-            chkBoxCheckId.Location = new Point(50, 184);
+            chkBoxCheckId.Location = new Point(24, 184);
             chkBoxCheckId.Name = "chkBoxCheckId";
             chkBoxCheckId.Size = new Size(131, 29);
             chkBoxCheckId.TabIndex = 198;
@@ -289,7 +429,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(257, 185);
+            label6.Location = new Point(180, 185);
             label6.Name = "label6";
             label6.Size = new Size(103, 25);
             label6.TabIndex = 199;
@@ -302,7 +442,7 @@
             panel3.Controls.Add(chkBoxFenton);
             panel3.Controls.Add(chkBoxTunstall);
             panel3.Controls.Add(chkBoxHanley);
-            panel3.Location = new Point(365, 171);
+            panel3.Location = new Point(288, 171);
             panel3.Name = "panel3";
             panel3.Size = new Size(574, 54);
             panel3.TabIndex = 198;
@@ -383,7 +523,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(740, 89);
+            label5.Location = new Point(740, 85);
             label5.Name = "label5";
             label5.Size = new Size(180, 25);
             label5.TabIndex = 187;
@@ -392,27 +532,17 @@
             // txtMinStockLevel
             // 
             txtMinStockLevel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMinStockLevel.Location = new Point(735, 113);
+            txtMinStockLevel.Location = new Point(735, 109);
             txtMinStockLevel.Name = "txtMinStockLevel";
             txtMinStockLevel.Size = new Size(191, 39);
             txtMinStockLevel.TabIndex = 188;
             txtMinStockLevel.Text = "0";
             txtMinStockLevel.TextAlign = HorizontalAlignment.Right;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(949, 89);
-            label4.Name = "label4";
-            label4.Size = new Size(147, 25);
-            label4.TabIndex = 185;
-            label4.Text = "Reorder Quantity";
-            // 
             // txtReorderQty
             // 
             txtReorderQty.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtReorderQty.Location = new Point(944, 113);
+            txtReorderQty.Location = new Point(944, 109);
             txtReorderQty.Name = "txtReorderQty";
             txtReorderQty.Size = new Size(191, 39);
             txtReorderQty.TabIndex = 186;
@@ -423,7 +553,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(241, 90);
+            label3.Location = new Point(241, 86);
             label3.Name = "label3";
             label3.Size = new Size(85, 25);
             label3.TabIndex = 183;
@@ -432,7 +562,7 @@
             // txtUnitCost
             // 
             txtUnitCost.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtUnitCost.Location = new Point(237, 114);
+            txtUnitCost.Location = new Point(237, 110);
             txtUnitCost.Name = "txtUnitCost";
             txtUnitCost.Size = new Size(191, 39);
             txtUnitCost.TabIndex = 184;
@@ -443,7 +573,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(452, 94);
+            label2.Location = new Point(452, 90);
             label2.Name = "label2";
             label2.Size = new Size(101, 25);
             label2.TabIndex = 181;
@@ -453,7 +583,7 @@
             // 
             dtpExpiryDate.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             dtpExpiryDate.Format = DateTimePickerFormat.Short;
-            dtpExpiryDate.Location = new Point(447, 118);
+            dtpExpiryDate.Location = new Point(447, 114);
             dtpExpiryDate.Name = "dtpExpiryDate";
             dtpExpiryDate.Size = new Size(277, 34);
             dtpExpiryDate.TabIndex = 182;
@@ -462,7 +592,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(20, 89);
+            label1.Location = new Point(20, 85);
             label1.Name = "label1";
             label1.Size = new Size(80, 25);
             label1.TabIndex = 179;
@@ -471,7 +601,7 @@
             // txtQuantity
             // 
             txtQuantity.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtQuantity.Location = new Point(16, 113);
+            txtQuantity.Location = new Point(16, 109);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(191, 39);
             txtQuantity.TabIndex = 180;
@@ -486,15 +616,15 @@
             panel1.Size = new Size(1185, 10);
             panel1.TabIndex = 178;
             // 
-            // dataGridDrugs
+            // drvDrugs
             // 
-            dataGridDrugs.AllowUserToAddRows = false;
-            dataGridDrugs.AllowUserToDeleteRows = false;
-            dataGridDrugs.AllowUserToResizeColumns = false;
-            dataGridDrugs.AllowUserToResizeRows = false;
-            dataGridDrugs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridDrugs.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
-            dataGridDrugs.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            drvDrugs.AllowUserToAddRows = false;
+            drvDrugs.AllowUserToDeleteRows = false;
+            drvDrugs.AllowUserToResizeColumns = false;
+            drvDrugs.AllowUserToResizeRows = false;
+            drvDrugs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            drvDrugs.CellBorderStyle = DataGridViewCellBorderStyle.RaisedVertical;
+            drvDrugs.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.SteelBlue;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
@@ -502,9 +632,9 @@
             dataGridViewCellStyle3.SelectionBackColor = Color.SteelBlue;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridDrugs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridDrugs.ColumnHeadersHeight = 40;
-            dataGridDrugs.Columns.AddRange(new DataGridViewColumn[] { DrugName, Quantity, ExpiryDate, Delete });
+            drvDrugs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            drvDrugs.ColumnHeadersHeight = 40;
+            drvDrugs.Columns.AddRange(new DataGridViewColumn[] { DrugName, Quantity, ExpiryDate, Delete, Id });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = Color.White;
             dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -512,58 +642,20 @@
             dataGridViewCellStyle4.SelectionBackColor = Color.RoyalBlue;
             dataGridViewCellStyle4.SelectionForeColor = Color.White;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridDrugs.DefaultCellStyle = dataGridViewCellStyle4;
-            dataGridDrugs.EnableHeadersVisualStyles = false;
-            dataGridDrugs.Location = new Point(12, 255);
-            dataGridDrugs.MultiSelect = false;
-            dataGridDrugs.Name = "dataGridDrugs";
-            dataGridDrugs.ReadOnly = true;
-            dataGridDrugs.RowHeadersVisible = false;
-            dataGridDrugs.RowHeadersWidth = 30;
-            dataGridDrugs.RowTemplate.DividerHeight = 2;
-            dataGridDrugs.RowTemplate.Height = 34;
-            dataGridDrugs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridDrugs.Size = new Size(1184, 384);
-            dataGridDrugs.TabIndex = 177;
-            dataGridDrugs.CellClick += dataGridDrugs_CellClick;
-            // 
-            // DrugName
-            // 
-            DrugName.DataPropertyName = "Name";
-            DrugName.FillWeight = 125.757576F;
-            DrugName.HeaderText = "Drug Name";
-            DrugName.MinimumWidth = 8;
-            DrugName.Name = "DrugName";
-            DrugName.ReadOnly = true;
-            // 
-            // Quantity
-            // 
-            Quantity.DataPropertyName = "Quantity";
-            Quantity.FillWeight = 125.757576F;
-            Quantity.HeaderText = "Quantity";
-            Quantity.MinimumWidth = 8;
-            Quantity.Name = "Quantity";
-            Quantity.ReadOnly = true;
-            // 
-            // ExpiryDate
-            // 
-            ExpiryDate.DataPropertyName = "Expiry";
-            ExpiryDate.FillWeight = 125.757576F;
-            ExpiryDate.HeaderText = "Expiry Date";
-            ExpiryDate.MinimumWidth = 8;
-            ExpiryDate.Name = "ExpiryDate";
-            ExpiryDate.ReadOnly = true;
-            // 
-            // Delete
-            // 
-            Delete.FillWeight = 22.727272F;
-            Delete.HeaderText = "Delete";
-            Delete.Image = (Image)resources.GetObject("Delete.Image");
-            Delete.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            Delete.MinimumWidth = 8;
-            Delete.Name = "Delete";
-            Delete.ReadOnly = true;
-            Delete.Resizable = DataGridViewTriState.False;
+            drvDrugs.DefaultCellStyle = dataGridViewCellStyle4;
+            drvDrugs.EnableHeadersVisualStyles = false;
+            drvDrugs.Location = new Point(12, 255);
+            drvDrugs.MultiSelect = false;
+            drvDrugs.Name = "drvDrugs";
+            drvDrugs.ReadOnly = true;
+            drvDrugs.RowHeadersVisible = false;
+            drvDrugs.RowHeadersWidth = 30;
+            drvDrugs.RowTemplate.DividerHeight = 2;
+            drvDrugs.RowTemplate.Height = 34;
+            drvDrugs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            drvDrugs.Size = new Size(1184, 384);
+            drvDrugs.TabIndex = 177;
+            drvDrugs.CellClick += dataGridDrugs_CellClick;
             // 
             // lblFirstname
             // 
@@ -571,9 +663,9 @@
             lblFirstname.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             lblFirstname.Location = new Point(23, 13);
             lblFirstname.Name = "lblFirstname";
-            lblFirstname.Size = new Size(149, 25);
+            lblFirstname.Size = new Size(171, 25);
             lblFirstname.TabIndex = 175;
-            lblFirstname.Text = "Enter Drug Name";
+            lblFirstname.Text = "Enter Product Name";
             // 
             // txtDrugName
             // 
@@ -582,6 +674,15 @@
             txtDrugName.Name = "txtDrugName";
             txtDrugName.Size = new Size(582, 39);
             txtDrugName.TabIndex = 176;
+            // 
+            // panelStoreNames
+            // 
+            panelStoreNames.BackColor = Color.WhiteSmoke;
+            panelStoreNames.BorderStyle = BorderStyle.FixedSingle;
+            panelStoreNames.Location = new Point(178, 167);
+            panelStoreNames.Name = "panelStoreNames";
+            panelStoreNames.Size = new Size(690, 61);
+            panelStoreNames.TabIndex = 203;
             // 
             // panelControl
             // 
@@ -653,6 +754,53 @@
             rdBtnSingleEntry.UseVisualStyleBackColor = true;
             rdBtnSingleEntry.CheckedChanged += rdBtnSingleEntry_CheckedChanged;
             // 
+            // DrugName
+            // 
+            DrugName.DataPropertyName = "Name";
+            DrugName.FillWeight = 125.757576F;
+            DrugName.HeaderText = "Drug Name";
+            DrugName.MinimumWidth = 8;
+            DrugName.Name = "DrugName";
+            DrugName.ReadOnly = true;
+            // 
+            // Quantity
+            // 
+            Quantity.DataPropertyName = "Quantity";
+            Quantity.FillWeight = 125.757576F;
+            Quantity.HeaderText = "Quantity";
+            Quantity.MinimumWidth = 8;
+            Quantity.Name = "Quantity";
+            Quantity.ReadOnly = true;
+            // 
+            // ExpiryDate
+            // 
+            ExpiryDate.DataPropertyName = "Expiry";
+            ExpiryDate.FillWeight = 125.757576F;
+            ExpiryDate.HeaderText = "Expiry Date";
+            ExpiryDate.MinimumWidth = 8;
+            ExpiryDate.Name = "ExpiryDate";
+            ExpiryDate.ReadOnly = true;
+            // 
+            // Delete
+            // 
+            Delete.FillWeight = 22.727272F;
+            Delete.HeaderText = "Delete";
+            Delete.Image = (Image)resources.GetObject("Delete.Image");
+            Delete.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Delete.MinimumWidth = 8;
+            Delete.Name = "Delete";
+            Delete.ReadOnly = true;
+            Delete.Resizable = DataGridViewTriState.False;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.MinimumWidth = 8;
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
             // StockManagementForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -670,14 +818,14 @@
             panelHeader.PerformLayout();
             panelContent.ResumeLayout(false);
             panelBulkEntry.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridDrugsBulkEntry).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDrugsBulkEntry).EndInit();
             panelSingleEntry.ResumeLayout(false);
             panelSingleEntry.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnReset).EndInit();
             ((System.ComponentModel.ISupportInitialize)ImgSave).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridDrugs).EndInit();
+            ((System.ComponentModel.ISupportInitialize)drvDrugs).EndInit();
             panelControl.ResumeLayout(false);
             panelOption.ResumeLayout(false);
             panelOption.PerformLayout();
@@ -704,11 +852,7 @@
         private Label label1;
         private TextBox txtQuantity;
         private Panel panel1;
-        private DataGridView dataGridDrugs;
-        private DataGridViewTextBoxColumn DrugName;
-        private DataGridViewTextBoxColumn Quantity;
-        private DataGridViewTextBoxColumn ExpiryDate;
-        private DataGridViewImageColumn Delete;
+        private DataGridView drvDrugs;
         private Label lblFirstname;
         private TextBox txtDrugName;
         private Panel panelControl;
@@ -718,11 +862,7 @@
         private Panel panel2;
         private Panel panelBulkEntry;
         private Button btnGetFile;
-        private DataGridView dataGridDrugsBulkEntry;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewImageColumn dataGridViewImageColumn1;
+        private DataGridView dgvDrugsBulkEntry;
         private CheckBox chkBoxLongton;
         private CheckBox chkBoxFenton;
         private CheckBox chkBoxHanley;
@@ -733,5 +873,28 @@
         private CheckBox chkBoxCheckId;
         private Label label7;
         private TextBox txtCondition;
+        private ComboBox cmbStockType;
+        private Panel panelStoreNames;
+        private Label label8;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn Condition;
+        private DataGridViewTextBoxColumn UnitCost;
+        private DataGridViewTextBoxColumn MinStockLevel;
+        private DataGridViewTextBoxColumn ReorderQty;
+        private DataGridViewCheckBoxColumn IdCheck;
+        private DataGridViewCheckBoxColumn Stock;
+        private DataGridViewCheckBoxColumn Tunstall;
+        private DataGridViewCheckBoxColumn Hanley;
+        private DataGridViewCheckBoxColumn Fenton;
+        private DataGridViewCheckBoxColumn Longton;
+        private DataGridViewCheckBoxColumn StockType;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewImageColumn dataGridViewImageColumn1;
+        private DataGridViewTextBoxColumn DrugName;
+        private DataGridViewTextBoxColumn Quantity;
+        private DataGridViewTextBoxColumn ExpiryDate;
+        private DataGridViewImageColumn Delete;
+        private DataGridViewTextBoxColumn Id;
     }
 }

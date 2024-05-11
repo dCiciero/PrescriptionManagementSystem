@@ -21,13 +21,18 @@ namespace PrescriptionManagementSystem
         public static string customerFormSource = "";
         public static int loggedInUserId;
         public static int loggedInStoreId;
+        public static int maxSellingQty=10;
         public static bool loggedInUserIsAdmin;
         public static int customerId;
         public static string customerName;
         public static int minimunStockLevel;
         public static List<Store> stores = new List<Store>();
         public static Store store;
+        public static List<StockType> stockTypess = new List<StockType>();
+        public static StockType stockType;
         public static BindingSource bindingSource;
+        public static BindingSource stockTypeBindingSource;
+        public static SystemData systemData;
         public static List<SaleItemDTO> SalesItemDTOs { get; set; }
 
         static AppConfig()
@@ -109,6 +114,61 @@ namespace PrescriptionManagementSystem
             }
         }
 
+
+        public static void getStockTypes()
+        {
+            DataSet custDs = new DataSet();
+            DataTable dataTable;
+            SqlDataAdapter sqlDataAdapter;
+
+
+            try
+            {
+                string sqlQuery = "SELECT * FROM StockType WHERE IsDeleted != 1";
+
+                if (sqlConn.State == ConnectionState.Open)
+                    sqlConn.Close();
+                sqlConn.Open();
+                
+                using (var cmd = new SqlCommand(sqlQuery, sqlConn))
+                {
+                    var reader = cmd.ExecuteReader();
+                    
+                    while (reader.Read())
+                    {
+                        stockType = new StockType
+                        {
+                            Id = (int)reader["Id"],
+                            Name = reader["Name"].ToString(),
+                        };
+                        stockTypess.Add(stockType);
+
+
+                    }
+                }
+
+                stockTypeBindingSource = new BindingSource();
+                stockTypeBindingSource.DataSource = stockTypess;
+                //cmbBoxStores.DataSource = bindingSource;
+                //cmbBoxStores.DisplayMember = "Name";
+                //cmbBoxStores.ValueMember = "Id";
+                //return (userExist, paswdHash, saltKey);
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "PharmaZeal");
+                //return (userExist, paswdHash, saltKey);
+            }
+            finally
+            {
+                sqlConn?.Close();
+            }
+        }
+
         public static bool ValidateEmail(string emailAddress)
         {
             var pattern = @"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
@@ -117,9 +177,50 @@ namespace PrescriptionManagementSystem
             return regex.IsMatch(emailAddress);
         }
 
-        private static void GetPharmaData()
+        public static void getSystemaData()
         {
+            try
+            {
+                //conn = new SqlConnection(connectionStr);
+                //cmd = new SqlCommand("SELECT * FROM Customer");
+                string sqlQuery = "SELECT * FROM SystemTable";
 
+                if (sqlConn.State == ConnectionState.Open)
+                    sqlConn.Close();
+                sqlConn.Open();
+                //MessageBox.Show("Connected to DB", "PharnaZeal");
+                sqlCmd = new SqlCommand(sqlQuery, sqlConn);
+
+                var reader = sqlCmd.ExecuteReader();
+
+                systemData = new SystemData();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        systemData.Id = reader.GetInt32(0);
+                        systemData.CompanyName = reader["CompanyName"].ToString();
+                        systemData.CompanyAddress = reader["CompanyAddress"].ToString();
+                        systemData.CompanyEmail = reader["CompanyEmail"].ToString();
+                        systemData.CompanyPhone = reader["CompanyPhone"].ToString();
+                        systemData.MaxSaleQty = (int)reader["MaxSaleQty"];
+                        systemData.MinStockLevel = (int)reader["MinStockLevel"];
+                    }
+                }
+               
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error Occured: {ex.Message}", "PharmaZeal");
+            }
+            finally
+            {
+                sqlConn?.Close();
+            }
         }
 
         public static void GetDrugsData()

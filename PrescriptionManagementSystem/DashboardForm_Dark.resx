@@ -117,22 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="medication.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="condition.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="medication.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="condition.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnOkCustomDate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAQpJREFUOE/t0s9KAlEUgPFxZBoSCWw5CYEL6RlcVI/g1kXrVoJQyxY+QPsWbt0o
+        hM+g4K4eQRK3UUEQ4p+Z6TvjEW4zpI67oA9+iHPPvTqj1n+/Fobhse/7LV67OIOjS+liYxGPWNdDHTkd
+        2S02lNDHEmbP8HRsFReOUEbiU7gm32iIeO+4Q1ZHo2EX9/hEE4e6JGsnkFubw0wOukJeR1dxoY0vSPL6
+        oNcLGMCH2RQNuNEBZkEQzKKRn3UgzyjeB250azJ+arlvGdrWK65h69ZkLDq4Rfy5mC1wjgPdtjkGa3hD
+        vBdc6NjusamKiZygPeFSl9PFRhsVjDCGh4wu7xcHyJ/4VN/+2SzrG8SnttVk0DupAAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

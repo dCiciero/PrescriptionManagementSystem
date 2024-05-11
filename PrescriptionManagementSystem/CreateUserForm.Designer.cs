@@ -39,10 +39,28 @@
             cmbBoxStores = new ComboBox();
             panel3 = new Panel();
             dataGridEmployee = new DataGridView();
+            firstName = new DataGridViewTextBoxColumn();
+            midName = new DataGridViewTextBoxColumn();
+            lastName = new DataGridViewTextBoxColumn();
+            phone = new DataGridViewTextBoxColumn();
+            dob = new DataGridViewTextBoxColumn();
+            employedDate = new DataGridViewTextBoxColumn();
+            houseNo = new DataGridViewTextBoxColumn();
+            street = new DataGridViewTextBoxColumn();
+            city = new DataGridViewTextBoxColumn();
+            postCode = new DataGridViewTextBoxColumn();
+            county = new DataGridViewTextBoxColumn();
+            Gender = new DataGridViewTextBoxColumn();
+            email = new DataGridViewTextBoxColumn();
+            isAdmin = new DataGridViewTextBoxColumn();
+            country = new DataGridViewTextBoxColumn();
+            terminateDate = new DataGridViewTextBoxColumn();
+            Id = new DataGridViewTextBoxColumn();
+            StoreId = new DataGridViewTextBoxColumn();
+            Delete = new DataGridViewImageColumn();
             chkTerminateUser = new CheckBox();
             btnReset = new PictureBox();
             ImgSave = new PictureBox();
-            ImgClose = new PictureBox();
             lblTerminateDate = new Label();
             dtpTermDate = new DateTimePicker();
             lblCountry = new Label();
@@ -79,31 +97,11 @@
             txtMidName = new TextBox();
             lblFirstname = new Label();
             txtFirstName = new TextBox();
-            firstName = new DataGridViewTextBoxColumn();
-            midName = new DataGridViewTextBoxColumn();
-            lastName = new DataGridViewTextBoxColumn();
-            phone = new DataGridViewTextBoxColumn();
-            dob = new DataGridViewTextBoxColumn();
-            employedDate = new DataGridViewTextBoxColumn();
-            houseNo = new DataGridViewTextBoxColumn();
-            street = new DataGridViewTextBoxColumn();
-            city = new DataGridViewTextBoxColumn();
-            postCode = new DataGridViewTextBoxColumn();
-            county = new DataGridViewTextBoxColumn();
-            Gender = new DataGridViewTextBoxColumn();
-            email = new DataGridViewTextBoxColumn();
-            isAdmin = new DataGridViewTextBoxColumn();
-            country = new DataGridViewTextBoxColumn();
-            terminateDate = new DataGridViewTextBoxColumn();
-            Id = new DataGridViewTextBoxColumn();
-            StoreId = new DataGridViewTextBoxColumn();
-            Delete = new DataGridViewImageColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridEmployee).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnReset).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ImgSave).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ImgClose).BeginInit();
             grbIsAdmin.SuspendLayout();
             grbGender.SuspendLayout();
             SuspendLayout();
@@ -154,7 +152,6 @@
             panel2.Controls.Add(chkTerminateUser);
             panel2.Controls.Add(btnReset);
             panel2.Controls.Add(ImgSave);
-            panel2.Controls.Add(ImgClose);
             panel2.Controls.Add(lblTerminateDate);
             panel2.Controls.Add(dtpTermDate);
             panel2.Controls.Add(lblCountry);
@@ -264,6 +261,178 @@
             dataGridEmployee.CellContentClick += dataGridEmployee_CellContentClick;
             dataGridEmployee.CellDoubleClick += dataGridEmployee_CellDoubleClick;
             // 
+            // firstName
+            // 
+            firstName.DataPropertyName = "FirstName";
+            firstName.FillWeight = 104.132233F;
+            firstName.HeaderText = "First Name";
+            firstName.MinimumWidth = 8;
+            firstName.Name = "firstName";
+            firstName.ReadOnly = true;
+            // 
+            // midName
+            // 
+            midName.DataPropertyName = "MiddleName";
+            midName.FillWeight = 104.132233F;
+            midName.HeaderText = "Middle Name";
+            midName.MinimumWidth = 8;
+            midName.Name = "midName";
+            midName.ReadOnly = true;
+            // 
+            // lastName
+            // 
+            lastName.DataPropertyName = "LastName";
+            lastName.FillWeight = 104.132233F;
+            lastName.HeaderText = "Last Name";
+            lastName.MinimumWidth = 8;
+            lastName.Name = "lastName";
+            lastName.ReadOnly = true;
+            // 
+            // phone
+            // 
+            phone.DataPropertyName = "Phone";
+            phone.HeaderText = "Phone";
+            phone.MinimumWidth = 8;
+            phone.Name = "phone";
+            phone.ReadOnly = true;
+            phone.Visible = false;
+            // 
+            // dob
+            // 
+            dob.DataPropertyName = "BirthDate";
+            dob.FillWeight = 104.132233F;
+            dob.HeaderText = "Date of Birth";
+            dob.MinimumWidth = 8;
+            dob.Name = "dob";
+            dob.ReadOnly = true;
+            // 
+            // employedDate
+            // 
+            employedDate.DataPropertyName = "DateEmployed";
+            employedDate.HeaderText = "Employed Date";
+            employedDate.MinimumWidth = 8;
+            employedDate.Name = "employedDate";
+            employedDate.ReadOnly = true;
+            employedDate.Visible = false;
+            // 
+            // houseNo
+            // 
+            houseNo.DataPropertyName = "HouseNo";
+            houseNo.HeaderText = "HouseNo";
+            houseNo.MinimumWidth = 8;
+            houseNo.Name = "houseNo";
+            houseNo.ReadOnly = true;
+            houseNo.Visible = false;
+            // 
+            // street
+            // 
+            street.DataPropertyName = "StreetName";
+            street.HeaderText = "Street";
+            street.MinimumWidth = 8;
+            street.Name = "street";
+            street.ReadOnly = true;
+            street.Visible = false;
+            // 
+            // city
+            // 
+            city.DataPropertyName = "City";
+            city.HeaderText = "City";
+            city.MinimumWidth = 8;
+            city.Name = "city";
+            city.ReadOnly = true;
+            city.Visible = false;
+            // 
+            // postCode
+            // 
+            postCode.DataPropertyName = "PostCode";
+            postCode.HeaderText = "Post Code";
+            postCode.MinimumWidth = 8;
+            postCode.Name = "postCode";
+            postCode.ReadOnly = true;
+            postCode.Visible = false;
+            // 
+            // county
+            // 
+            county.DataPropertyName = "County";
+            county.HeaderText = "County";
+            county.MinimumWidth = 8;
+            county.Name = "county";
+            county.ReadOnly = true;
+            county.Visible = false;
+            // 
+            // Gender
+            // 
+            Gender.DataPropertyName = "Gender";
+            Gender.HeaderText = "Gender";
+            Gender.MinimumWidth = 8;
+            Gender.Name = "Gender";
+            Gender.ReadOnly = true;
+            Gender.Visible = false;
+            // 
+            // email
+            // 
+            email.DataPropertyName = "Email";
+            email.HeaderText = "Email";
+            email.MinimumWidth = 8;
+            email.Name = "email";
+            email.ReadOnly = true;
+            email.Visible = false;
+            // 
+            // isAdmin
+            // 
+            isAdmin.DataPropertyName = "IsAdmin";
+            isAdmin.HeaderText = "Is Admin?";
+            isAdmin.MinimumWidth = 8;
+            isAdmin.Name = "isAdmin";
+            isAdmin.ReadOnly = true;
+            isAdmin.Visible = false;
+            // 
+            // country
+            // 
+            country.DataPropertyName = "Country";
+            country.HeaderText = "Country";
+            country.MinimumWidth = 8;
+            country.Name = "country";
+            country.ReadOnly = true;
+            country.Visible = false;
+            // 
+            // terminateDate
+            // 
+            terminateDate.DataPropertyName = "DateDisengaged";
+            terminateDate.HeaderText = "Terminate Date";
+            terminateDate.MinimumWidth = 8;
+            terminateDate.Name = "terminateDate";
+            terminateDate.ReadOnly = true;
+            terminateDate.Visible = false;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.MinimumWidth = 8;
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // StoreId
+            // 
+            StoreId.DataPropertyName = "StoreId";
+            StoreId.HeaderText = "StoreId";
+            StoreId.MinimumWidth = 8;
+            StoreId.Name = "StoreId";
+            StoreId.ReadOnly = true;
+            StoreId.Visible = false;
+            // 
+            // Delete
+            // 
+            Delete.FillWeight = 54.54545F;
+            Delete.HeaderText = "Delete";
+            Delete.Image = (Image)resources.GetObject("Delete.Image");
+            Delete.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Delete.MinimumWidth = 8;
+            Delete.Name = "Delete";
+            Delete.ReadOnly = true;
+            // 
             // chkTerminateUser
             // 
             chkTerminateUser.AutoSize = true;
@@ -278,9 +447,9 @@
             // btnReset
             // 
             btnReset.Image = (Image)resources.GetObject("btnReset.Image");
-            btnReset.Location = new Point(1215, 439);
+            btnReset.Location = new Point(1289, 451);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(40, 52);
+            btnReset.Size = new Size(40, 40);
             btnReset.SizeMode = PictureBoxSizeMode.Zoom;
             btnReset.TabIndex = 137;
             btnReset.TabStop = false;
@@ -289,24 +458,13 @@
             // ImgSave
             // 
             ImgSave.Image = (Image)resources.GetObject("ImgSave.Image");
-            ImgSave.Location = new Point(1169, 439);
+            ImgSave.Location = new Point(1243, 451);
             ImgSave.Name = "ImgSave";
-            ImgSave.Size = new Size(40, 52);
+            ImgSave.Size = new Size(40, 40);
             ImgSave.SizeMode = PictureBoxSizeMode.Zoom;
             ImgSave.TabIndex = 136;
             ImgSave.TabStop = false;
             ImgSave.Click += ImgSave_Click;
-            // 
-            // ImgClose
-            // 
-            ImgClose.Image = (Image)resources.GetObject("ImgClose.Image");
-            ImgClose.Location = new Point(1261, 439);
-            ImgClose.Name = "ImgClose";
-            ImgClose.Size = new Size(40, 52);
-            ImgClose.SizeMode = PictureBoxSizeMode.Zoom;
-            ImgClose.TabIndex = 135;
-            ImgClose.TabStop = false;
-            ImgClose.Click += ImgClose_Click;
             // 
             // lblTerminateDate
             // 
@@ -651,178 +809,6 @@
             txtFirstName.Size = new Size(434, 39);
             txtFirstName.TabIndex = 107;
             // 
-            // firstName
-            // 
-            firstName.DataPropertyName = "FirstName";
-            firstName.FillWeight = 104.132233F;
-            firstName.HeaderText = "First Name";
-            firstName.MinimumWidth = 8;
-            firstName.Name = "firstName";
-            firstName.ReadOnly = true;
-            // 
-            // midName
-            // 
-            midName.DataPropertyName = "MiddleName";
-            midName.FillWeight = 104.132233F;
-            midName.HeaderText = "Middle Name";
-            midName.MinimumWidth = 8;
-            midName.Name = "midName";
-            midName.ReadOnly = true;
-            // 
-            // lastName
-            // 
-            lastName.DataPropertyName = "LastName";
-            lastName.FillWeight = 104.132233F;
-            lastName.HeaderText = "Last Name";
-            lastName.MinimumWidth = 8;
-            lastName.Name = "lastName";
-            lastName.ReadOnly = true;
-            // 
-            // phone
-            // 
-            phone.DataPropertyName = "Phone";
-            phone.HeaderText = "Phone";
-            phone.MinimumWidth = 8;
-            phone.Name = "phone";
-            phone.ReadOnly = true;
-            phone.Visible = false;
-            // 
-            // dob
-            // 
-            dob.DataPropertyName = "BirthDate";
-            dob.FillWeight = 104.132233F;
-            dob.HeaderText = "Date of Birth";
-            dob.MinimumWidth = 8;
-            dob.Name = "dob";
-            dob.ReadOnly = true;
-            // 
-            // employedDate
-            // 
-            employedDate.DataPropertyName = "DateEmployed";
-            employedDate.HeaderText = "Employed Date";
-            employedDate.MinimumWidth = 8;
-            employedDate.Name = "employedDate";
-            employedDate.ReadOnly = true;
-            employedDate.Visible = false;
-            // 
-            // houseNo
-            // 
-            houseNo.DataPropertyName = "HouseNo";
-            houseNo.HeaderText = "HouseNo";
-            houseNo.MinimumWidth = 8;
-            houseNo.Name = "houseNo";
-            houseNo.ReadOnly = true;
-            houseNo.Visible = false;
-            // 
-            // street
-            // 
-            street.DataPropertyName = "StreetName";
-            street.HeaderText = "Street";
-            street.MinimumWidth = 8;
-            street.Name = "street";
-            street.ReadOnly = true;
-            street.Visible = false;
-            // 
-            // city
-            // 
-            city.DataPropertyName = "City";
-            city.HeaderText = "City";
-            city.MinimumWidth = 8;
-            city.Name = "city";
-            city.ReadOnly = true;
-            city.Visible = false;
-            // 
-            // postCode
-            // 
-            postCode.DataPropertyName = "PostCode";
-            postCode.HeaderText = "Post Code";
-            postCode.MinimumWidth = 8;
-            postCode.Name = "postCode";
-            postCode.ReadOnly = true;
-            postCode.Visible = false;
-            // 
-            // county
-            // 
-            county.DataPropertyName = "County";
-            county.HeaderText = "County";
-            county.MinimumWidth = 8;
-            county.Name = "county";
-            county.ReadOnly = true;
-            county.Visible = false;
-            // 
-            // Gender
-            // 
-            Gender.DataPropertyName = "Gender";
-            Gender.HeaderText = "Gender";
-            Gender.MinimumWidth = 8;
-            Gender.Name = "Gender";
-            Gender.ReadOnly = true;
-            Gender.Visible = false;
-            // 
-            // email
-            // 
-            email.DataPropertyName = "Email";
-            email.HeaderText = "Email";
-            email.MinimumWidth = 8;
-            email.Name = "email";
-            email.ReadOnly = true;
-            email.Visible = false;
-            // 
-            // isAdmin
-            // 
-            isAdmin.DataPropertyName = "IsAdmin";
-            isAdmin.HeaderText = "Is Admin?";
-            isAdmin.MinimumWidth = 8;
-            isAdmin.Name = "isAdmin";
-            isAdmin.ReadOnly = true;
-            isAdmin.Visible = false;
-            // 
-            // country
-            // 
-            country.DataPropertyName = "Country";
-            country.HeaderText = "Country";
-            country.MinimumWidth = 8;
-            country.Name = "country";
-            country.ReadOnly = true;
-            country.Visible = false;
-            // 
-            // terminateDate
-            // 
-            terminateDate.DataPropertyName = "DateDisengaged";
-            terminateDate.HeaderText = "Terminate Date";
-            terminateDate.MinimumWidth = 8;
-            terminateDate.Name = "terminateDate";
-            terminateDate.ReadOnly = true;
-            terminateDate.Visible = false;
-            // 
-            // Id
-            // 
-            Id.DataPropertyName = "Id";
-            Id.HeaderText = "Id";
-            Id.MinimumWidth = 8;
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // StoreId
-            // 
-            StoreId.DataPropertyName = "StoreId";
-            StoreId.HeaderText = "StoreId";
-            StoreId.MinimumWidth = 8;
-            StoreId.Name = "StoreId";
-            StoreId.ReadOnly = true;
-            StoreId.Visible = false;
-            // 
-            // Delete
-            // 
-            Delete.FillWeight = 54.54545F;
-            Delete.HeaderText = "Delete";
-            Delete.Image = (Image)resources.GetObject("Delete.Image");
-            Delete.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            Delete.MinimumWidth = 8;
-            Delete.Name = "Delete";
-            Delete.ReadOnly = true;
-            // 
             // CreateUserForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -843,7 +829,6 @@
             ((System.ComponentModel.ISupportInitialize)dataGridEmployee).EndInit();
             ((System.ComponentModel.ISupportInitialize)btnReset).EndInit();
             ((System.ComponentModel.ISupportInitialize)ImgSave).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ImgClose).EndInit();
             grbIsAdmin.ResumeLayout(false);
             grbIsAdmin.PerformLayout();
             grbGender.ResumeLayout(false);
@@ -861,7 +846,6 @@
         private CheckBox chkTerminateUser;
         private PictureBox btnReset;
         private PictureBox ImgSave;
-        private PictureBox ImgClose;
         private Label lblTerminateDate;
         private DateTimePicker dtpTermDate;
         private Label label2;

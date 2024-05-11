@@ -1,4 +1,17 @@
-﻿using PrescriptionManagementSystem.Data.Models;
+﻿// ***********************************************************************
+// Assembly         : PrescriptionManagementSystem
+// Author           : ogaga.ivhurie
+// Created          : 04-01-2024
+//
+// Last Modified By : ogaga.ivhurie
+// Last Modified On : 05-02-2024
+// ***********************************************************************
+// <copyright file="DashboardForm.cs" company="PrescriptionManagementSystem">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using PrescriptionManagementSystem.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,11 +24,25 @@ using System.Windows.Forms;
 
 namespace PrescriptionManagementSystem
 {
+    /// <summary>
+    /// Class DashboardForm.
+    /// Implements the <see cref="Form" />
+    /// </summary>
+    /// <seealso cref="Form" />
     public partial class DashboardForm : Form
     {
         //Fields
+        /// <summary>
+        /// The model
+        /// </summary>
         private Dashboard model;
+        /// <summary>
+        /// The current button
+        /// </summary>
         private Button currentButton;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DashboardForm"/> class.
+        /// </summary>
         public DashboardForm()
         {
             InitializeComponent();
@@ -30,6 +57,9 @@ namespace PrescriptionManagementSystem
             LoadData();
         }
 
+        /// <summary>
+        /// Loads the data.
+        /// </summary>
         private void LoadData()
         {
             var refreshData = model.LoadData(dtpStartDate.Value, dtpEndDate.Value);
@@ -49,6 +79,8 @@ namespace PrescriptionManagementSystem
                 chartGrossRevenue.Series[0].YValueMembers = "TotalAmount";
                 chartGrossRevenue.DataBind();
 
+                
+
 
                 chartTop5Products.DataSource = model.TopProductList;
                 chartTop5Products.Series[0].XValueMember = "Key";
@@ -66,6 +98,10 @@ namespace PrescriptionManagementSystem
                 Console.WriteLine("View not loaded");
         }
 
+        /// <summary>
+        /// Sets the date menu button UI.
+        /// </summary>
+        /// <param name="button">The button.</param>
         private void SetDateMenuButtonUI(object button)
         {
             var btn = (Button)button;
@@ -100,6 +136,11 @@ namespace PrescriptionManagementSystem
             }
 
         }
+        /// <summary>
+        /// Handles the Click event of the btnToday control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnToday_Click(object sender, EventArgs e)
         {
             dtpStartDate.Value = DateTime.Today;
@@ -108,6 +149,11 @@ namespace PrescriptionManagementSystem
             SetDateMenuButtonUI(sender);
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnLast7Days control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnLast7Days_Click(object sender, EventArgs e)
         {
             dtpStartDate.Value = DateTime.Today.AddDays(-7);
@@ -116,6 +162,11 @@ namespace PrescriptionManagementSystem
             SetDateMenuButtonUI(sender);
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnLast30Days control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnLast30Days_Click(object sender, EventArgs e)
         {
             dtpStartDate.Value = DateTime.Today.AddDays(-30);
@@ -124,6 +175,11 @@ namespace PrescriptionManagementSystem
             SetDateMenuButtonUI(sender);
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnThisMonth control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnThisMonth_Click(object sender, EventArgs e)
         {
             dtpStartDate.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
@@ -132,16 +188,31 @@ namespace PrescriptionManagementSystem
             SetDateMenuButtonUI(sender);
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnCustomDate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnCustomDate_Click(object sender, EventArgs e)
         {
             SetDateMenuButtonUI(sender);
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnOkCustomDate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnOkCustomDate_Click(object sender, EventArgs e)
         {
             LoadData();
         }
 
+        /// <summary>
+        /// Handles the Click event of the lblStartDate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void lblStartDate_Click(object sender, EventArgs e)
         {
             if (currentButton == btnCustomDate)
@@ -151,6 +222,11 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the lblEndDate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void lblEndDate_Click(object sender, EventArgs e)
         {
             if (currentButton == btnCustomDate)
@@ -160,22 +236,42 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the ValueChanged event of the dtpStartDate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
             lblStartDate.Text = dtpStartDate.Text;
         }
 
+        /// <summary>
+        /// Handles the ValueChanged event of the dtpEndDate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
             lblEndDate.Text = dtpEndDate.Text;
         }
 
+        /// <summary>
+        /// Handles the Load event of the DashboardForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             lblStartDate.Text = dtpStartDate.Text;
             lblEndDate.Text = dtpEndDate.Text;
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnClose control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();

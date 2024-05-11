@@ -157,6 +157,8 @@
             // 
             salesToolStripMenuItem.Name = "salesToolStripMenuItem";
             salesToolStripMenuItem.Size = new Size(274, 34);
+            salesToolStripMenuItem.Text = "System Setup";
+            salesToolStripMenuItem.Click += salesToolStripMenuItem_Click;
             // 
             // contentPanel
             // 

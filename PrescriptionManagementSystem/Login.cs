@@ -1,3 +1,19 @@
+// ***********************************************************************
+// Assembly         : PrescriptionManagementSystem
+// Author           : ogaga.ivhurie
+// Created          : 02-22-2024
+//
+// Last Modified By : ogaga.ivhurie
+// Last Modified On : 05-03-2024
+// ***********************************************************************
+// <copyright file="Login.cs" company="PrescriptionManagementSystem">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Domain;
+using Domain.DTOs;
+using Domain.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.VisualBasic.ApplicationServices;
 using PrescriptionManagementSystem.Data.DTOs;
@@ -8,13 +24,36 @@ using System.Security.Cryptography;
 
 namespace PrescriptionManagementSystem
 {
+    /// <summary>
+    /// Class LoginForm.
+    /// Implements the <see cref="System.Windows.Forms.Form" />
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.Form" />
     public partial class LoginForm : Form
     {
+        /// <summary>
+        /// The SQL connection
+        /// </summary>
         SqlConnection sqlConn;
+        /// <summary>
+        /// The SQL command
+        /// </summary>
         SqlCommand sqlCmd;
+        /// <summary>
+        /// The RDR
+        /// </summary>
         SqlDataReader rdr;
+        /// <summary>
+        /// The edit record
+        /// </summary>
         bool editRecord = false;
+        /// <summary>
+        /// The customer identifier
+        /// </summary>
         int customerId = 0;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginForm"/> class.
+        /// </summary>
         public LoginForm()
         {
             InitializeComponent();
@@ -27,33 +66,40 @@ namespace PrescriptionManagementSystem
             //getStoreDetails();
             //ConnectDB();
         }
+        /// <summary>
+        /// Connects the database.
+        /// </summary>
         private void ConnectDB()
         {
             string connectionStr = @"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=PharmaZeal; Integrated Security=True; ";
             sqlConn = new SqlConnection(connectionStr);
         }
 
+        /// <summary>
+        /// Handles the Click event of the pbSignout control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void pbSignout_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        //public (bool, string, string, string, int) CheckUsersAccount(string userEmail)
-        public UserDTO CheckUsersAccount(string userEmail)
+        //This function retireves the users details based on the email if it exist and returns a UserDTO Object
+        /// <summary>
+        /// Checks the users account.
+        /// </summary>
+        /// <param name="userEmail">The user email.</param>
+        /// <returns>UserResponseDTO.</returns>
+        public UserResponseDTO CheckUsersAccount(string userEmail)
         {
             DataSet custDs = new DataSet();
             DataTable dataTable;
             SqlDataAdapter sqlDataAdapter;
-            bool userExist = false;
-            string paswdHash = "";
-            string saltKey = "";
-            string storeName = "";
-            int loggedInUserId = 0;
-            UserDTO userDTO = null;
+            UserResponseDTO userResponseDTO = null;
             try
             {
-                //conn = new SqlConnection(connectionStr);
-                //cmd = new SqlCommand("SELECT * FROM Customer");
+                //This queries the User Account table and the Store table to get the store the user belongs to
                 string sqlQuery = "SELECT u.*, s.Name AS StoreName FROM UserAccount u " +
                     "JOIN Stores s ON u.StoreId=s.Id " +
                     "WHERE  u.Email=@email and u.IsDeleted != 1 and StoreId=@storeId";
@@ -61,8 +107,7 @@ namespace PrescriptionManagementSystem
                 if (sqlConn.State == ConnectionState.Open)
                     sqlConn.Close();
                 sqlConn.Open();
-                //MessageBox.Show("Connected to DB", "PharnaZeal");
-                //sqlCmd = new SqlCommand("SELECT * FROM Customer", sqlConn);
+                
                 using (var cmd = new SqlCommand(sqlQuery, sqlConn))
                 {
                     cmd.Parameters.AddWithValue("@email", userEmail);
@@ -71,33 +116,30 @@ namespace PrescriptionManagementSystem
                     var reader = cmd.ExecuteReader();
                     if (!reader.HasRows)
                     {
-                        return userDTO; // (userExist, paswdHash, saltKey, storeName, loggedInUserId);
+                        return userResponseDTO;
                     }
                     while (reader.Read())
                     {
                         //MessageBox.Show(reader.GetString(0));
                         //MessageBox.Show(reader["PasswordHash"].ToString());
-                        userDTO = new UserDTO()
+                        userResponseDTO = new()
                         {
                             Email = reader["Email"].ToString(),
                             IsAdmin = (bool)reader["IsAdmin"],
                             PasswordHash = reader["PasswordHash"].ToString(),
-                            Name = $"{reader["FirstName"]} {reader["LastName"]}",
-                            Store = reader["StoreName"].ToString(),
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            StoreName = reader["StoreName"].ToString(),
                             Id = (int)reader["Id"],
                             SaltKey = reader["SecurityStamp"].ToString(),
                             StoreId = (int)reader["StoreId"],
                         };
-                        userExist = true;
-                        paswdHash = reader["PasswordHash"].ToString();
-                        saltKey = reader["SecurityStamp"].ToString();
-                        storeName = reader["StoreName"].ToString();
-                        loggedInUserId = (int)reader["Id"];
+                        
 
 
                     }
                 }
-                return userDTO;
+                return userResponseDTO;
 
 
 
@@ -106,7 +148,7 @@ namespace PrescriptionManagementSystem
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "PharmaZeal");
-                return userDTO; // (userExist, paswdHash, saltKey, storeName, loggedInUserId);
+                return userResponseDTO; // (userExist, paswdHash, saltKey, storeName, loggedInUserId);
             }
             finally
             {
@@ -114,6 +156,9 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Gets the store details.
+        /// </summary>
         public void getStoreDetails()
         {
             DataSet custDs = new DataSet();
@@ -182,44 +227,122 @@ namespace PrescriptionManagementSystem
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnLogin control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //this.Hide();
-            //return;
-            
-            LoginUser user = new LoginUser();
-            user.Email = txtEmail.Text;
-            user.Password = txtPassword.Text;
 
-            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
+
+
+
+
+            LoginUser userRequest = new LoginUser();
+            userRequest.Email = txtEmail.Text;
+            userRequest.Password = txtPassword.Text;
+             var isFormValid = validateFormEntry(userRequest);
+            if (!isFormValid)
             {
                 MessageBox.Show("Enter all details", "PharmaZeal");
                 return;
             }
-
-            if (!AppConfig.ValidateEmail(user.Email))
+/*            else
             {
-                MessageBox.Show("Enter valid email address", "PharmaZeal");
+
+                if (!AppConfig.ValidateEmail(userRequest.Email))
+                {
+                    MessageBox.Show("Enter valid email address", "PharmaZeal");
+                    return;
+                }
+                Store store = (Store)cmbBoxStores.SelectedItem;
+
+
+                LoginRequestDTO userRequestDTO = new LoginRequestDTO();
+                userRequestDTO.Email = txtEmail.Text;
+                userRequestDTO.Password = txtPassword.Text;
+                userRequestDTO.StoreId = store.Id;
+
+                bool isUserValid;
+                UserResponseDTO userResponseDTO = new();
+
+                userResponseDTO = GlobalConfig.Connection.CheckUsersAccount(userRequestDTO);
+                if (userResponseDTO.Email != null)
+                {
+                    isUserValid = validateUser(userResponseDTO, userRequest);
+                    if (!isUserValid)
+                    {
+                        MessageBox.Show("Invalid User Details", "PharmaZeal");
+                        return;
+                    }
+                    else
+                    {
+                        AppConfig.loggedInUserId = userResponseDTO.Id;
+                        AppConfig.loggedInUserName = userResponseDTO.FullName;
+                        AppConfig.loggedInUserStore = userResponseDTO.StoreName;
+                        AppConfig.loggedInUserIsAdmin = userResponseDTO.IsAdmin;
+                        AppConfig.loggedInStoreId = userResponseDTO.StoreId;
+
+                        this.Hide();
+                        mainForm mainForm = new mainForm();
+                        mainForm.WindowState = FormWindowState.Maximized;
+                        mainForm.FormBorderStyle = FormBorderStyle.None;
+                        mainForm.Show();
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Invalid User Details", "PharmaZeal");
+                    return;
+                }
+                //(isUserValid, userResponseDTO) = GlobalConfig.Connection.CheckUsersAccount(userRequestDTO);
+
+            }*/
+
+            //if (string.IsNullOrEmpty(userRequest.Email) || string.IsNullOrEmpty(userRequest.Password))
+            //{
+            //    MessageBox.Show("Enter all details", "PharmaZeal");
+            //    return;
+            //}
+
+
+
+
+
+            //var (salt, hashed) = HashPassword(new byte[] { }, user.Password);
+
+            //UserDTO userDTO = CheckUsersAccount(userRequest.Email);
+            UserResponseDTO userResponseDTO = CheckUsersAccount(userRequest.Email);
+            var isUserValidated = validateUser(userResponseDTO, userRequest);
+            if (isUserValidated)
+            {
+                this.Hide();
+                mainForm mainForm = new mainForm();
+                mainForm.WindowState = FormWindowState.Maximized;
+                mainForm.FormBorderStyle = FormBorderStyle.None;
+                mainForm.Show();
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Invalid User Details", "PharmaZeal");
                 return;
             }
 
-                //mainForm mainFormContainer = new mainForm();
-                //mainFormContainer.WindowState = FormWindowState.Maximized;
-                //mainFormContainer.Show();
-            var (salt, hashed) = HashPassword(new byte[] { }, user.Password);
-            UserDTO userDTO = CheckUsersAccount(user.Email);
-            if (userDTO != null)
+            if (userResponseDTO != null)
             {
-                var byteSalt = Convert.FromBase64String(userDTO.SaltKey);
-                var enteredPassword = (HashPassword(byteSalt, user.Password)).Item2;
+                var byteSalt = Convert.FromBase64String(userResponseDTO.SaltKey);
+                var enteredPassword = (HashPassword(byteSalt, userRequest.Password)).Item2;
                 // MessageBox.Show(enteredPassword+"/n "+password);
-                if (enteredPassword == userDTO.PasswordHash)
+                if (enteredPassword == userResponseDTO.PasswordHash)
                 {
-                    AppConfig.loggedInUserId = userDTO.Id;
-                    AppConfig.loggedInUserName = userDTO.Name;
-                    AppConfig.loggedInUserStore = userDTO.Store;
-                    AppConfig.loggedInUserIsAdmin = userDTO.IsAdmin;
-                    AppConfig.loggedInStoreId = userDTO.StoreId;
+                    AppConfig.loggedInUserId = userResponseDTO.Id;
+                    AppConfig.loggedInUserName = userResponseDTO.FullName;
+                    AppConfig.loggedInUserStore = userResponseDTO.StoreName;
+                    AppConfig.loggedInUserIsAdmin = userResponseDTO.IsAdmin;
+                    AppConfig.loggedInStoreId = userResponseDTO.StoreId;
 
                     this.Hide();
                     mainForm mainForm = new mainForm();
@@ -234,15 +357,74 @@ namespace PrescriptionManagementSystem
                 //}
             }
             MessageBox.Show("Invalid User Details", "PharmaZeal");
+            
 
         }
 
+        /// <summary>
+        /// Validates the user.
+        /// </summary>
+        /// <param name="userDTO">The user dto.</param>
+        /// <param name="userRequest">The user request.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private bool validateUser(UserResponseDTO userDTO, LoginUser userRequest)
+        {
+            if (userDTO != null)
+            {
+                var byteSalt = Convert.FromBase64String(userDTO.SaltKey);
+                var enteredPassword = (HashPassword(byteSalt, userRequest.Password)).Item2;
+                if (enteredPassword == userDTO.PasswordHash)
+                {
+                    AppConfig.loggedInUserId = userDTO.Id;
+                    AppConfig.loggedInUserName = userDTO.FullName;
+                    AppConfig.loggedInUserStore = userDTO.StoreName;
+                    AppConfig.loggedInUserIsAdmin = userDTO.IsAdmin;
+                    AppConfig.loggedInStoreId = userDTO.StoreId;
+                    
+
+                    
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Validates the form entry.
+        /// </summary>
+        /// <param name="userRequest">The user request.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private bool validateFormEntry(LoginUser userRequest)
+        {
+            if (userRequest.Email.Length==0 || userRequest.Password.Length==0)
+            {
+                return false;
+            }
+            else
+            {
+
+                return true;
+            }
+        }
+        /// <summary>
+        /// Handles the Click event of the btnReset control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             HomeForm homeForm = new HomeForm();
             homeForm.Show();
         }
 
+
+        //This function crates a has
+        /// <summary>
+        /// Hashes the password.
+        /// </summary>
+        /// <param name="salt">The salt.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>System.ValueTuple&lt;System.Byte[], System.String&gt;.</returns>
         private static (byte[], string) HashPassword(byte[] salt, string password)
         {
             // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
@@ -266,11 +448,21 @@ namespace PrescriptionManagementSystem
             return (salt, hashed);
         }
 
+        /// <summary>
+        /// Handles the Click event of the lblPassword control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void lblPassword_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the cmbBoxStores control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void cmbBoxStores_SelectedIndexChanged(object sender, EventArgs e)
         {
             Store store = (Store)cmbBoxStores.SelectedItem;
