@@ -413,12 +413,14 @@ namespace PrescriptionManagementSystem
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnReset_Click(object sender, EventArgs e)
         {
-            HomeForm homeForm = new HomeForm();
-            homeForm.Show();
+            //HomeForm homeForm = new HomeForm();
+            //homeForm.Show();
+            txtEmail.Text = string.Empty;
+            txtPassword.Text = string.Empty;
         }
 
 
-        //This function crates a has
+       
         /// <summary>
         /// Hashes the password.
         /// </summary>

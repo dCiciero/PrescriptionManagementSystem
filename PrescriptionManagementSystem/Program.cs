@@ -64,6 +64,9 @@ namespace PrescriptionManagementSystem
             AppConfig.getStoreDetails();
             AppConfig.getStockTypes();
             AppConfig.getSystemaData();
+            //AppConfig.checkForMinimumStock();
+
+           // AppConfig.
 
             //Initialize DB Connection for Library
             Domain.GlobalConfig.InitializeConnections(Domain.DatabaseType.Sql);

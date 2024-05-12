@@ -203,6 +203,7 @@
             // 
             nudStockLevel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             nudStockLevel.Location = new Point(477, 319);
+            nudStockLevel.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             nudStockLevel.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudStockLevel.Name = "nudStockLevel";
             nudStockLevel.Size = new Size(180, 39);

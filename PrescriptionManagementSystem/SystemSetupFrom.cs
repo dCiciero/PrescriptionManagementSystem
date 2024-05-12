@@ -113,7 +113,6 @@ namespace PrescriptionManagementSystem
             {
                 sqlConn.Open();
                 var QueryString = "";
-                MessageBox.Show("Editing Record", "PharmaZeal");
                 QueryString = "UPDATE SystemTable " +
                             " SET CompanyName=@CompanyName, CompanyEmail=@CompanyEmail, CompanyAddress=@CompanyAddress, " +
                             " CompanyPhone=@CompanyPhone, MinStockLevel=@minStock, MaxSaleQty=@maxSale" +
@@ -142,7 +141,8 @@ namespace PrescriptionManagementSystem
 
                     ClearFields();
                     AppConfig.getSystemaData();
-                    loadData();
+                    AppConfig.checkForMinimumStock();
+                    //loadData();
                 }
 
             }

@@ -86,9 +86,7 @@ namespace PrescriptionManagementSystem
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void mainForm_Load(object sender, EventArgs e)
         {
-            //LoginForm frmLogin = new LoginForm();
-            //frmLogin.ShowDialog();
-             // You are logged in to {AppConfig.loggedInUserStore}
+            
             lblStoreName.Text = $"You are logged into {AppConfig.loggedInUserStore} branch";
             if (!AppConfig.loggedInUserIsAdmin)
             {
@@ -101,6 +99,11 @@ namespace PrescriptionManagementSystem
             else
             {
                 lblUserDetails.Text = $"Welcome {AppConfig.loggedInUserName} - (Admin User)";
+            }
+            AppConfig.checkForMinimumStock();
+            if (AppConfig.isMinimumStockAvailable)
+            {
+                MessageBox.Show("There are some low running stock. Kindly Check the Inventory", "PharmaZeal", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

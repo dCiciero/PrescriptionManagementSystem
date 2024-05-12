@@ -13,7 +13,7 @@ namespace PrescriptionManagementSystem.Data.Models
         public string? CompanyEmail { get; set; }
         public string? CompanyPhone { get; set;}
         public string? CompanyAddress { get; set; }
-        public int MinStockLevel { get; set; }
-        public int MaxSaleQty { get; set;}
+        public int MinStockLevel { get; set; } = 1;
+        public int MaxSaleQty { get; set; } = 1;
     }
 }
